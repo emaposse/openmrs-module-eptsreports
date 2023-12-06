@@ -186,8 +186,7 @@ public interface CovivQueries {
             + "group by patient_id\n"
             + ") coorte12meses_final\n"
             + "-- Verificação qual é o estado final\n"
-            + "-- where estado_final=6\n"
-            + "where data_estado is not null and  data_usar_c<=data_estado and estado_id=8";
+            + "-- where estado_final=6\n";
 
     public static final String
         findPatientsWhoHaveMoreThan3MonthsOnArtWithViralLoadRegisteredInTheLast12Months =
