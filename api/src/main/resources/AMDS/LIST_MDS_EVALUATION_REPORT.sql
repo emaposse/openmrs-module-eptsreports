@@ -2585,7 +2585,7 @@
             (
               select 
               final.patient_id,
-              if(final.patient_id_2 is null,'Não','Sim') as consultas_pb_imc_24_meses 
+              if(final.patient_id_2 is not null,'Não','Sim') as consultas_pb_imc_24_meses 
                 from
                 (
                  select distinct 
@@ -4056,7 +4056,7 @@
             left join
             (
               select 
-              final.patient_id, if(final.patient_id_2 is null,'Não','Sim') consultas_pb_imc_36_meses
+              final.patient_id, if(final.patient_id_2 is not null,'Não','Sim') consultas_pb_imc_36_meses
                 from
                 (
                select distinct 
