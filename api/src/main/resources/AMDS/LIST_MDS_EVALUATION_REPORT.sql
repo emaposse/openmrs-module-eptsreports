@@ -145,7 +145,7 @@
           
            tbSinthoms36Meses.mdc_simtomas_tb_36_meses mdc_simtomas_tb_36_meses,
            pbImc36Meses.consultas_pb_imc_36_meses  mds_consultas_pb_imc_36_meses,
-           if(todasConsultasFichaApss36Meses.total_apss_36_meses is not null, todasConsultasFichaApss36Meses.total_apss_36_meses,'0')  total_consultas_fc_36_meses,
+           if(todasConsultasFichaClinica36Meses.total_fc_36_meses is not null, todasConsultasFichaClinica36Meses.total_fc_36_meses,'0')  total_consultas_fc_36_meses,
            if(todasConsultasFichaApss36Meses.total_apss_36_meses is not null, todasConsultasFichaApss36Meses.total_apss_36_meses,'0')  total_consultas_apss_36_meses,
 
 
@@ -509,7 +509,8 @@
        (
                    SELECT tx_new.patient_id,tx_new.art_start_date, 
                           max(cv.data_primeiro_resultado_cv_12_meses) data_primeiro_resultado_cv_12_meses,
-                          cv.resultado_cv_12_meses
+                          if(cv.comments is not null, CONCAT(cv.resultado_cv_12_meses,' ',cv. comments),cv.resultado_cv_12_meses) resultado_cv_12_meses,
+                          cv.comments
                        FROM 
                           (
                           SELECT patient_id, MIN(art_start_date) art_start_date FROM 
@@ -549,7 +550,7 @@
                     when 23908  then 'MENOR QUE 400 COPIAS/ML'
                     when 23904  then 'MENOR QUE 839 COPIAS/ML'
                     when 165331 then CONCAT('MENOR QUE', ' ',o.comments)
-                    else null end as resultado_cv_12_meses
+                    else null end as resultado_cv_12_meses, o.comments
                     from patient p   
                     inner join encounter e on p.patient_id = e.patient_id   
                     inner join obs o on o.encounter_id = e.encounter_id   
@@ -559,7 +560,7 @@
                     
                     union
                     
-                    select p.patient_id,o.obs_datetime data_primeiro_resultado_cv_12_meses, o.value_numeric as resultado_cv_12_meses
+                    select p.patient_id,o.obs_datetime data_primeiro_resultado_cv_12_meses, o.value_numeric as resultado_cv_12_meses, o.comments
                     from patient p   
                     inner join encounter e on p.patient_id = e.patient_id   
                     inner join obs o on o.encounter_id = e.encounter_id   
@@ -1960,7 +1961,8 @@
        (
                    SELECT tx_new.patient_id,tx_new.art_start_date, 
                           max(cv.data_primeiro_resultado_cv_24_meses) data_primeiro_resultado_cv_24_meses,
-                          cv.resultado_cv_24_meses
+                          if(cv.comments is not null, CONCAT(cv.resultado_cv_24_meses,' ',cv. comments),cv.resultado_cv_24_meses) resultado_cv_24_meses,
+                          cv.comments
                        FROM 
                           (
                           SELECT patient_id, MIN(art_start_date) art_start_date FROM 
@@ -2000,7 +2002,7 @@
                     when 23908  then 'MENOR QUE 400 COPIAS/ML'
                     when 23904  then 'MENOR QUE 839 COPIAS/ML'
                     when 165331 then CONCAT('MENOR QUE', ' ',o.comments)
-                    else null end as resultado_cv_24_meses
+                    else null end as resultado_cv_24_meses, o.comments
                     from patient p   
                     inner join encounter e on p.patient_id = e.patient_id   
                     inner join obs o on o.encounter_id = e.encounter_id   
@@ -2010,7 +2012,7 @@
                     
                     union
                     
-                    select p.patient_id,o.obs_datetime data_primeiro_resultado_cv_24_meses, o.value_numeric as resultado_cv_24_meses
+                    select p.patient_id,o.obs_datetime data_primeiro_resultado_cv_24_meses, o.value_numeric as resultado_cv_24_meses, o.comments
                     from patient p   
                     inner join encounter e on p.patient_id = e.patient_id   
                     inner join obs o on o.encounter_id = e.encounter_id   
@@ -3431,7 +3433,8 @@
        (
                         SELECT tx_new.patient_id,tx_new.art_start_date, 
                           max(cv.data_primeiro_resultado_cv_36_meses) data_primeiro_resultado_cv_36_meses,
-                          cv.resultado_cv_36_meses
+                          if(cv.comments is not null, CONCAT(cv.resultado_cv_36_meses,' ',cv. comments),cv.resultado_cv_36_meses) resultado_cv_36_meses,
+                          cv.comments
                        FROM 
                           (
                           SELECT patient_id, MIN(art_start_date) art_start_date FROM 
@@ -3471,7 +3474,7 @@
                     when 23908  then 'MENOR QUE 400 COPIAS/ML'
                     when 23904  then 'MENOR QUE 839 COPIAS/ML'
                     when 165331 then CONCAT('MENOR QUE', ' ',o.comments)
-                    else null end as resultado_cv_36_meses
+                    else null end as resultado_cv_36_meses, o.comments
                     from patient p   
                     inner join encounter e on p.patient_id = e.patient_id   
                     inner join obs o on o.encounter_id = e.encounter_id   
@@ -3481,7 +3484,7 @@
                     
                     union
                     
-                    select p.patient_id,o.obs_datetime data_primeiro_resultado_cv_36_meses, o.value_numeric as resultado_cv_36_meses
+                    select p.patient_id,o.obs_datetime data_primeiro_resultado_cv_36_meses, o.value_numeric as resultado_cv_36_meses, o.comments
                     from patient p   
                     inner join encounter e on p.patient_id = e.patient_id   
                     inner join obs o on o.encounter_id = e.encounter_id   
@@ -4053,9 +4056,7 @@
             left join
             (
               select 
-              final.patient_id,
-              if(final.patient_id_2 is null,'Não',
-              if(final.value_numeric is not null and count(final.patient_id_2)=count(final.concept_id),'Sim','Não')) consultas_pb_imc_36_meses 
+              final.patient_id, if(final.patient_id_2 is null,'Não','Sim') consultas_pb_imc_36_meses
                 from
                 (
                select distinct 
