@@ -20,8 +20,8 @@ public class ResumoMensalCetaDimension {
     final CohortDefinitionDimension dimension = new CohortDefinitionDimension();
     String mappings = "startDate=${startDate},endDate=${endDate},location=${location}";
 
-    dimension.addParameter(new Parameter("cohortStartDate", "Cohort Start Date", Date.class));
-    dimension.addParameter(new Parameter("cohortEndDate", "Cohort End Date", Date.class));
+    dimension.addParameter(new Parameter("startDate", "Start Date", Date.class));
+    dimension.addParameter(new Parameter("endDate", "End Date", Date.class));
     dimension.addParameter(new Parameter("location", "location", Location.class));
     dimension.setName("Get patient states");
 
@@ -58,6 +58,13 @@ public class ResumoMensalCetaDimension {
                 "Factores Psicossociais",
                 ResumoMensalCetaQueries.QUERY
                     .findPatientsWithScreeningCriteriaPsychosocialFactorsOnCetaInitialForm),
+            mappings));
+
+    dimension.addCohortDefinition(
+        "exclusion",
+        EptsReportUtils.map(
+            this.genericCohortQueries.generalSql(
+                "Factores Psicossociais", ResumoMensalCetaQueries.QUERY.exclusion),
             mappings));
 
     return dimension;

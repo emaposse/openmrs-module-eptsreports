@@ -23,6 +23,11 @@ import org.openmrs.module.eptsreports.reporting.library.cohorts.GenericCohortQue
 import org.openmrs.module.eptsreports.reporting.library.datasets.DatimCodeDataSet;
 import org.openmrs.module.eptsreports.reporting.library.datasets.LocationDataSetDefinition;
 import org.openmrs.module.eptsreports.reporting.library.datasets.SismaCodeDataSet;
+import org.openmrs.module.eptsreports.reporting.library.datasets.rmceta.ResumoMensalCetaSection1DataSet;
+import org.openmrs.module.eptsreports.reporting.library.datasets.rmceta.ResumoMensalCetaSection2DataSet;
+import org.openmrs.module.eptsreports.reporting.library.datasets.rmceta.ResumoMensalCetaSection3DataSet;
+import org.openmrs.module.eptsreports.reporting.library.datasets.rmceta.ResumoMensalCetaSection4DataSet;
+import org.openmrs.module.eptsreports.reporting.library.datasets.rmceta.ResumoMensalCetaSection5DataSet;
 import org.openmrs.module.eptsreports.reporting.library.datasets.rmceta.ResumoMensalCetaSection6DataSet;
 import org.openmrs.module.eptsreports.reporting.library.queries.BaseQueries;
 import org.openmrs.module.eptsreports.reporting.reports.manager.EptsDataExportManager;
@@ -40,6 +45,11 @@ import org.springframework.stereotype.Component;
 public class SetupResumoMensalCeta extends EptsDataExportManager {
 
   @Autowired private ResumoMensalCetaSection6DataSet resumoMensalCetaSection6DataSet;
+  @Autowired private ResumoMensalCetaSection1DataSet resumoMensalCetaSection1DataSet;
+  @Autowired private ResumoMensalCetaSection2DataSet resumoMensalCetaSection2DataSet;
+  @Autowired private ResumoMensalCetaSection3DataSet resumoMensalCetaSection3DataSet;
+  @Autowired private ResumoMensalCetaSection4DataSet resumoMensalCetaSection4DataSet;
+  @Autowired private ResumoMensalCetaSection5DataSet resumoMensalCetaSection5DataSet;
 
   @Autowired protected GenericCohortQueries genericCohortQueries;
 
@@ -84,17 +94,25 @@ public class SetupResumoMensalCeta extends EptsDataExportManager {
     rd.addParameters(resumoMensalCetaSection6DataSet.getParameters());
 
     rd.addDataSetDefinition("HF", mapStraightThrough(new LocationDataSetDefinition()));
+
+    rd.addDataSetDefinition(
+        "R0", mapStraightThrough(resumoMensalCetaSection1DataSet.constructDataSet()));
+    rd.addDataSetDefinition(
+        "R1", mapStraightThrough(resumoMensalCetaSection2DataSet.constructDataSet()));
+    rd.addDataSetDefinition(
+        "R2", mapStraightThrough(resumoMensalCetaSection3DataSet.constructDataSet()));
+    rd.addDataSetDefinition(
+        "R3", mapStraightThrough(resumoMensalCetaSection4DataSet.constructDataSet()));
+    rd.addDataSetDefinition(
+        "R4", mapStraightThrough(resumoMensalCetaSection5DataSet.constructDataSet()));
     rd.addDataSetDefinition(
         "R", mapStraightThrough(resumoMensalCetaSection6DataSet.constructDataSet()));
-
     rd.addDataSetDefinition(
         "D",
         Mapped.mapStraightThrough(this.datimCodeDataSet.constructDataset(this.getParameters())));
-
     rd.addDataSetDefinition(
         "SC",
         Mapped.mapStraightThrough(this.sismaCodeDataSet.constructDataset(this.getParameters())));
-
     rd.setBaseCohortDefinition(
         EptsReportUtils.map(
             this.genericCohortQueries.generalSql(

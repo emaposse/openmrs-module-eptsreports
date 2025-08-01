@@ -20,16 +20,17 @@ public interface ResumoMensalCetaQueries {
 
     public static final String
         findPatientsWithScreeningCriteriaSegundARTConsultationInCetaInitialForm =
-            "select p.patient_id from patient p "
-                + "inner join encounter  e on e.patient_id=p.patient_id "
-                + "inner join obs o on o.encounter_id=e.encounter_id "
-                + "where p.voided=0 "
-                + "and e.voided=0 and o.voided=0 "
-                + "and e.encounter_type=97 "
-                + "and o.concept_id=165535 "
-                + "and o.value_coded=165536 "
+            "select p.patient_id from patient p  "
+                + "inner join encounter  e on e.patient_id=p.patient_id  "
+                + "inner join obs o on o.encounter_id=e.encounter_id  "
+                + "where p.voided=0  "
+                + "and e.voided=0 and "
+                + "o.voided=0  "
+                + "and e.encounter_type=97  "
+                + "and o.concept_id=165535  "
+                + "and o.value_coded=165536  "
                 + "and e.encounter_datetime>=:startDate "
-                + "and e.encounter_datetime<=:endDate"
+                + "and e.encounter_datetime<=:endDate  "
                 + "and e.location_id=:location ";
 
     public static final String
@@ -274,8 +275,8 @@ public interface ResumoMensalCetaQueries {
     public static final String findPatientsWhoAreStartedSMTretmentInCetaInitialFormIndicator5 =
         "select final.patient_id from "
             + "( "
-            + "select p.patient_id,e.encounter_datetime from patient p"
-            + "inner join encounter  e on e.patient_id=p.patient_id"
+            + "select p.patient_id,e.encounter_datetime from patient p "
+            + "inner join encounter  e on e.patient_id=p.patient_id "
             + "inner join obs o on o.encounter_id=e.encounter_id "
             + "where p.voided=0 "
             + "and e.voided=0 and o.voided=0 "
@@ -320,7 +321,7 @@ public interface ResumoMensalCetaQueries {
                 + "and o.value_coded=703 "
                 + "and e.encounter_datetime<=:endDate "
                 + "and e.location_id=:location "
-                + "group by p.patient_id"
+                + "group by p.patient_id "
                 + ")final ";
 
     public static final String findPatientsWhoStartedSMCetaIndicator8 =
@@ -359,8 +360,9 @@ public interface ResumoMensalCetaQueries {
             + ")final ";
 
     public static final String findPatientsWhoStartedSMCetaIndicator10 =
-        "select final.patient_id from (  "
-            + "select p.patient_id,max(e.encounter_datetime) encounter_datetime p   "
+        "select final.patient_id from "
+            + "(  "
+            + "select p.patient_id,max(e.encounter_datetime) encounter_datetime from patient p   "
             + "inner join encounter  e on e.patient_id=p.patient_id   "
             + "inner join obs o on o.encounter_id=e.encounter_id  "
             + "inner join obs grupo on grupo.encounter_id=e.encounter_id  "
@@ -416,7 +418,7 @@ public interface ResumoMensalCetaQueries {
             + "and o.concept_id=20454 "
             + "and o.value_coded in(21084,21081,165534) "
             + "and e.encounter_type=96 "
-            + "and e.encounter_datetime<=endDate "
+            + "and e.encounter_datetime<=:endDate "
             + "and e.location_id=:location  ";
 
     public static final String findPatientsWhoAreInterruptTretmentIndicator13 =
@@ -434,7 +436,7 @@ public interface ResumoMensalCetaQueries {
             + ")consultaCeta89Dias  "
             + "left join "
             + "( "
-            + "select p.patient_id,e.max(encounter_datetime) encounter_datetime from patient p    "
+            + "select p.patient_id,max(e.encounter_datetime) encounter_datetime from patient p    "
             + "inner join encounter  e on e.patient_id=p.patient_id    "
             + "where p.voided=0   "
             + "and e.voided=0    "
@@ -461,6 +463,7 @@ public interface ResumoMensalCetaQueries {
             + "group by p.patient_id   "
             + ")tratamento on tratamento.patient_id=consultaCeta.patient_id  "
             + "where tratamento.patient_id is null  ";
+
     public static final String findPatientsWhoAreInterruptTretmentIndicator14 =
         "select final.patient_id from "
             + "( "
@@ -491,7 +494,7 @@ public interface ResumoMensalCetaQueries {
             + "and o.concept_id=165567 "
             + "and o.value_coded=1706 "
             + "and e.encounter_datetime<=:endDate "
-            + "and e.location_id=:location"
+            + "and e.location_id=:location "
             + "group by p.patient_id "
             + ")final ";
 
@@ -577,5 +580,59 @@ public interface ResumoMensalCetaQueries {
             + "and e.location_id=:location    "
             + ")fichaCetaSeguimento59Dias on fichaCetaSeguimento59Dias.patient_id=fichaCetaSeguimento89Dias.patient_id "
             + "where fichaCetaSeguimento59Dias.patient_id is null ";
+
+    public static final String exclusion =
+        "select p.patient_id from patient p "
+            + "left join "
+            + "( "
+            + "select p.patient_id from patient p  "
+            + "inner join encounter  e on e.patient_id=p.patient_id  "
+            + "inner join obs o on o.encounter_id=e.encounter_id  "
+            + "where p.voided=0  "
+            + "and e.voided=0 and "
+            + "o.voided=0  "
+            + "and e.encounter_type=97  "
+            + "and o.concept_id=165535  "
+            + "and o.value_coded=165536  "
+            + "and e.encounter_datetime>=:startDate "
+            + "and e.encounter_datetime<=:endDate  "
+            + "and e.location_id=:location "
+            + "union "
+            + "select p.patient_id from patient p "
+            + "inner join encounter  e on e.patient_id=p.patient_id "
+            + "inner join obs o on o.encounter_id=e.encounter_id "
+            + "where p.voided=0 "
+            + "and e.voided=0 and o.voided=0 "
+            + "and e.encounter_type=97 "
+            + "and o.concept_id=165535 "
+            + "and o.value_coded=23912 "
+            + "and e.encounter_datetime>=:startDate "
+            + "and e.encounter_datetime<=:endDate "
+            + "and e.location_id=:location "
+            + "union "
+            + "select p.patient_id from patient p "
+            + "inner join encounter  e on e.patient_id=p.patient_id "
+            + "inner join obs o on o.encounter_id=e.encounter_id "
+            + "where p.voided=0 "
+            + "and e.voided=0 and o.voided=0 "
+            + "and e.encounter_type=97 "
+            + "and o.concept_id=165535 "
+            + "and o.value_coded in(6311,23993) "
+            + "and e.encounter_datetime>=:startDate "
+            + "and e.encounter_datetime<=:endDate "
+            + "and e.location_id=:location "
+            + "union "
+            + "select p.patient_id from patient p "
+            + "inner join encounter  e on e.patient_id=p.patient_id "
+            + "inner join obs o on o.encounter_id=e.encounter_id "
+            + "where p.voided=0 "
+            + "and e.voided=0 and o.voided=0 "
+            + "and e.encounter_type=97 "
+            + "and o.concept_id=6193 "
+            + "and e.encounter_datetime>=:startDate "
+            + "and e.encounter_datetime<=:endDate "
+            + "and e.location_id=:location "
+            + ")tobeExclude on tobeExclude.patient_id=p.patient_id "
+            + "WHERE tobeExclude.patient_id is null ";
   }
 }
