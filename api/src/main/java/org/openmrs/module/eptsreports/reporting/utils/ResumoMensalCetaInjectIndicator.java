@@ -83,9 +83,7 @@ public class ResumoMensalCetaInjectIndicator {
         this.eptsGeneralIndicator.getIndicator(
             "indicator 7",
             EptsReportUtils.map(
-                this.reMensalCetaCohortQueries
-                    .findPatientsWhoAreFollowpCetaUntilTheEndOfMonthIndicator6(),
-                mappings)));
+                this.resumoMensalCohortQueriesComposition.getIdicator7(), mappings)));
 
     cohorteMap.put(
         8,

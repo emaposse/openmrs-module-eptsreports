@@ -44,140 +44,140 @@ public class ResumoMensalCetaSection1DataSet extends BaseDataSet {
     addRow(
         dataSetDefinition,
         "RMCST0",
-        "Nr de Pacientes que reunem critérios para o rastreio FICA-BEM",
+        "2a consulta TARV: Nr de Pacientes que reunem critérios para o rastreio FICA-BEM",
         EptsReportUtils.map(resumoMensalCetaInjectIndicator.inject(0), mappings),
         getColumnsSection6());
 
     addRow(
         dataSetDefinition,
         "RMCST1",
-        "Nr de Pacientes rastreados usando o FICA-BEM",
+        "2a consulta TARV: Nr de Pacientes rastreados usando o FICA-BEM",
         EptsReportUtils.map(resumoMensalCetaInjectIndicator.inject(1), mappings),
         getColumnsSection6());
 
     addRow(
         dataSetDefinition,
         "RMCST2",
-        "Nr de Pacientes com resultado Positivo no FICA BEM",
+        "2a consulta TARV: Nr de Pacientes com resultado Positivo no FICA BEM",
         EptsReportUtils.map(resumoMensalCetaInjectIndicator.inject(2), mappings),
         getColumnsSection6());
 
     addRow(
         dataSetDefinition,
         "RMCST3",
-        "Nr de Pacientes referidos para o seguimento de Doenca Mental Grave (psiquiatria/fluxo normal)",
+        "2a consulta TARV: Nr de Pacientes referidos para o seguimento de Doenca Mental Grave (psiquiatria/fluxo normal)",
         EptsReportUtils.map(resumoMensalCetaInjectIndicator.inject(3), mappings),
         getColumnsSection6());
 
     addRow(
         dataSetDefinition,
         "RMCST4",
-        "Nr de Pacientes referidos para o seguimento de Doença Mental Comum (Psicólogo))",
+        "2a consulta TARV: Nr de Pacientes referidos para o seguimento de Doença Mental Comum (Psicólogo))",
         EptsReportUtils.map(resumoMensalCetaInjectIndicator.inject(4), mappings),
         getColumnsSection6());
 
     addRow(
         dataSetDefinition,
         "RMCST5",
-        "Nr de Pacientes que iniciaram o tratamento de SM - CETA",
+        "2a consulta TARV: Nr de Pacientes que iniciaram o tratamento de SM - CETA",
         EptsReportUtils.map(resumoMensalCetaInjectIndicator.inject(5), mappings),
         getColumnsSection6());
 
     addRow(
         dataSetDefinition,
         "RMCST6",
-        "Nr de Pacientes em seguimento no CETA ate o final do mes)",
+        "2a consulta TARV: Nr de Pacientes em seguimento no CETA ate o final do mes)",
         EptsReportUtils.map(resumoMensalCetaInjectIndicator.inject(6), mappings),
         getColumnsSection6());
 
     addRow(
         dataSetDefinition,
         "RMCST7",
-        "Nr de Pacientes com, pelo menos, uma Tentativa de Suicídio a entrada",
+        "2a consulta TARV: Nr de Pacientes com, pelo menos, uma Tentativa de Suicídio a entrada",
         EptsReportUtils.map(resumoMensalCetaInjectIndicator.inject(7), mappings),
         getColumnsSection6());
 
     addRow(
         dataSetDefinition,
         "RMCST8",
-        "Nr de Pacientes com Tentativa de Homicídio a entrada",
+        "2a consulta TARV: Nr de Pacientes com Tentativa de Homicídio a entrada",
         EptsReportUtils.map(resumoMensalCetaInjectIndicator.inject(8), mappings),
         getColumnsSection6());
 
     addRow(
         dataSetDefinition,
         "RMCST9",
-        "Nr de pacientes com sintomas de ansiedade/depressão",
+        "2a consulta TARV: Nr de pacientes com sintomas de ansiedade/depressão",
         EptsReportUtils.map(resumoMensalCetaInjectIndicator.inject(9), mappings),
         getColumnsSection6());
 
     addRow(
         dataSetDefinition,
         "RMCST10",
-        "Nr de pacientes com trauma",
+        "2a consulta TARV: Nr de pacientes com trauma",
         EptsReportUtils.map(resumoMensalCetaInjectIndicator.inject(10), mappings),
         getColumnsSection6());
 
     addRow(
         dataSetDefinition,
         "RMCST11",
-        "Nr de pacientes que consomem abusivamente bebidas alcoolicas",
+        "2a consulta TARV: Nr de pacientes que consomem abusivamente bebidas alcoolicas",
         EptsReportUtils.map(resumoMensalCetaInjectIndicator.inject(11), mappings),
         getColumnsSection6());
 
     addRow(
         dataSetDefinition,
         "RMCST12",
-        "Nr de pacientes que consomem outras substâncias psicoactivas (ex. Canabis, marijuana, etc)",
+        "2a consulta TARV: Nr de pacientes que consomem outras substâncias psicoactivas (ex. Canabis, marijuana, etc)",
         EptsReportUtils.map(resumoMensalCetaInjectIndicator.inject(12), mappings),
         getColumnsSection6());
 
     addRow(
         dataSetDefinition,
         "RMCST13",
-        "Nr de pacientes que interromperam o tratamento",
+        "2a consulta TARV: Nr de pacientes que interromperam o tratamento",
         EptsReportUtils.map(resumoMensalCetaInjectIndicator.inject(13), mappings),
         getColumnsSection6());
 
     addRow(
         dataSetDefinition,
         "RMCST14",
-        "Nr de pacientes referidos",
+        "2a consulta TARV: Nr de pacientes referidos",
         EptsReportUtils.map(resumoMensalCetaInjectIndicator.inject(14), mappings),
         getColumnsSection6());
 
     addRow(
         dataSetDefinition,
         "RMCST15",
-        "Nr de pacientes transferidos",
+        "2a consulta TARV: Nr de pacientes transferidos",
         EptsReportUtils.map(resumoMensalCetaInjectIndicator.inject(15), mappings),
         getColumnsSection6());
 
     addRow(
         dataSetDefinition,
         "RMCST16",
-        "Nr de pacientes reintegrados",
+        "2a consulta TARV: Nr de pacientes reintegrados",
         EptsReportUtils.map(resumoMensalCetaInjectIndicator.inject(16), mappings),
         getColumnsSection6());
 
     addRow(
         dataSetDefinition,
         "RMCST17",
-        "Nr de Óbitos",
+        "2a consulta TARV: Nr de Óbitos",
         EptsReportUtils.map(resumoMensalCetaInjectIndicator.inject(17), mappings),
         getColumnsSection6());
 
     addRow(
         dataSetDefinition,
         "RMCST18",
-        "Nr de Abandonos",
+        "2a consulta TARV: Nr de Abandonos",
         EptsReportUtils.map(resumoMensalCetaInjectIndicator.inject(18), mappings),
         getColumnsSection6());
 
     addRow(
         dataSetDefinition,
         "RMCST19",
-        "Nr de Pacientes que terminaram o tratamento",
+        "2a consulta TARV: Nr de Pacientes que terminaram o tratamento",
         EptsReportUtils.map(resumoMensalCetaInjectIndicator.inject(19), mappings),
         getColumnsSection6());
 

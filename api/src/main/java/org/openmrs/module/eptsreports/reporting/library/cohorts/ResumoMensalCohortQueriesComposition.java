@@ -74,6 +74,13 @@ public class ResumoMensalCohortQueriesComposition {
             mappings));
 
     definition.addSearch(
+        "REINTEGRETED",
+        EptsReportUtils.map(
+            this.resumoMensalCetaCohortQueries
+                .findPatientsWithScreeningCriteriaEqualsReintegratedOrPooradherenceInOtherSources(),
+            mappings));
+
+    definition.addSearch(
         "PSYCHOSOCIALFACTORS",
         EptsReportUtils.map(
             this.resumoMensalCetaCohortQueries
@@ -81,7 +88,7 @@ public class ResumoMensalCohortQueriesComposition {
             mappings));
 
     definition.setCompositionString(
-        "FICHAFICABEM AND (SECONDCONSULTATION OR CV OR PSYCHOSOCIALFACTORS)");
+        "FICHAFICABEM AND (SECONDCONSULTATION OR CV OR REINTEGRETED OR PSYCHOSOCIALFACTORS)");
 
     return definition;
   }
@@ -407,9 +414,10 @@ public class ResumoMensalCohortQueriesComposition {
 
     final String mappings = "startDate=${startDate},endDate=${endDate},location=${location}";
     definition.addSearch(
-        "INDICATOR13",
+        "INDICATOR6",
         EptsReportUtils.map(
-            this.resumoMensalCetaCohortQueries.findPatientsWhoAreInterruptTretmentIndicator13(),
+            resumoMensalCetaCohortQueries
+                .findPatientsWhoAreFollowpCetaUntilTheEndOfMonthIndicator6(),
             mappings));
 
     definition.addSearch(
@@ -418,7 +426,7 @@ public class ResumoMensalCohortQueriesComposition {
             this.resumoMensalCetaCohortQueries.findPatientsWhoAreReintegretedIndicator16(),
             mappings));
 
-    definition.setCompositionString("INDICATOR13 AND IT16");
+    definition.setCompositionString("INDICATOR6 AND IT16");
 
     return definition;
   }
@@ -466,12 +474,10 @@ public class ResumoMensalCohortQueriesComposition {
         EptsReportUtils.map(
             this.resumoMensalCetaCohortQueries.findPatientsWhoAreInterruptTretmentIndicator13(),
             mappings));
-
     definition.addSearch("INDICATOR14", EptsReportUtils.map(this.getIdicator14(), mappings));
 
     definition.addSearch("INDICATOR15", EptsReportUtils.map(this.getIdicator15(), mappings));
     definition.addSearch("INDICATOR16", EptsReportUtils.map(this.getIdicator16(), mappings));
-
     definition.addSearch("INDICATOR17", EptsReportUtils.map(this.getIdicator17(), mappings));
 
     definition.setCompositionString(

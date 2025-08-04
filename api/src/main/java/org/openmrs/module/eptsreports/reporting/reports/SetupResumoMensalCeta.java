@@ -44,12 +44,12 @@ import org.springframework.stereotype.Component;
 @Component
 public class SetupResumoMensalCeta extends EptsDataExportManager {
 
-  @Autowired private ResumoMensalCetaSection6DataSet resumoMensalCetaSection6DataSet;
   @Autowired private ResumoMensalCetaSection1DataSet resumoMensalCetaSection1DataSet;
   @Autowired private ResumoMensalCetaSection2DataSet resumoMensalCetaSection2DataSet;
   @Autowired private ResumoMensalCetaSection3DataSet resumoMensalCetaSection3DataSet;
   @Autowired private ResumoMensalCetaSection4DataSet resumoMensalCetaSection4DataSet;
   @Autowired private ResumoMensalCetaSection5DataSet resumoMensalCetaSection5DataSet;
+  @Autowired private ResumoMensalCetaSection6DataSet resumoMensalCetaSection6DataSet;
 
   @Autowired protected GenericCohortQueries genericCohortQueries;
 
