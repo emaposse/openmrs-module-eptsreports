@@ -20,7 +20,9 @@ public interface ResumoMensalCetaQueries {
 
     public static final String
         findPatientsWithScreeningCriteriaSegundARTConsultationInCetaInitialForm =
-            "select p.patient_id from patient p  "
+            "select final.patient_id from "
+            + "( "
+            + "select p.patient_id,max(e.encounter_datetime) from patient p  "
                 + "inner join encounter  e on e.patient_id=p.patient_id  "
                 + "inner join obs o on o.encounter_id=e.encounter_id  "
                 + "where p.voided=0  "
@@ -29,9 +31,10 @@ public interface ResumoMensalCetaQueries {
                 + "and e.encounter_type=97  "
                 + "and o.concept_id=165535  "
                 + "and o.value_coded=165536  "
-                + "and e.encounter_datetime>=:startDate "
                 + "and e.encounter_datetime<=:endDate  "
-                + "and e.location_id=:location ";
+                + "and e.location_id=:location "
+                + "group by patient_id "
+                + ")final ";
 
     public static final String
         findPatientsWithSecondArtConsultationDuringReportingPeriodOtherSources =
@@ -40,11 +43,9 @@ public interface ResumoMensalCetaQueries {
                 + "from ( "
                 + "select p.patient_id, min(e.encounter_datetime) data_primeira_consulta from patient p "
                 + "inner join encounter  e on e.patient_id=p.patient_id "
-                + "inner join obs o on o.encounter_id=e.encounter_id "
                 + "where p.voided=0 "
-                + "and e.voided=0 and o.voided=0 "
+                + "and e.voided=0 "
                 + "and e.encounter_type=6  "
-                + "and e.encounter_datetime>=:startDate  "
                 + "and e.encounter_datetime<=:endDate "
                 + "and e.location_id=:location "
                 + "group by p.patient_id "
@@ -66,7 +67,9 @@ public interface ResumoMensalCetaQueries {
                 + ")final ";
 
     public static final String findPatientsWithHighViralLoadResultInCetaInitialForm =
-        "select p.patient_id from patient p "
+        "select final.patient_id from"
+        + "(  "
+        + "select p.patient_id, max(e.encounter_datetime) from patient p "
             + "inner join encounter  e on e.patient_id=p.patient_id "
             + "inner join obs o on o.encounter_id=e.encounter_id "
             + "where p.voided=0  "
@@ -74,9 +77,10 @@ public interface ResumoMensalCetaQueries {
             + "and e.encounter_type=97  "
             + "and o.concept_id=165535  "
             + "and o.value_coded=23912 "
-            + "and e.encounter_datetime>=:startDate  "
             + "and e.encounter_datetime<=:endDate "
-            + "and e.location_id=:location ";
+            + "and e.location_id=:location "
+            + "group by p.patient_id "
+            + ")final ";
 
     public static final String findPatientsWithHighViralLoadResultInOtherSources =
         "select cvAlta.patient_id  "
@@ -98,9 +102,12 @@ public interface ResumoMensalCetaQueries {
             + ")cvAlta  "
             + "left join obs o on o.person_id=cvAlta.patient_id   "
             + "where o.obs_datetime=cvAlta.data_cv_alta and o.concept_id=856 and o.value_numeric>1000 ";
+   
     public static final String
         findPatientsWithScreeningCriteriaEqualsReintegratedOrPooradherenceInCetaForm =
-            "select p.patient_id from patient p "
+            "select final.patient_id from "
+            + "( "
+            + "select p.patient_id, max(e.encounter_datetime) from patient p "
                 + "inner join encounter  e on e.patient_id=p.patient_id "
                 + "inner join obs o on o.encounter_id=e.encounter_id "
                 + "where p.voided=0  "
@@ -108,9 +115,10 @@ public interface ResumoMensalCetaQueries {
                 + "and e.encounter_type=97  "
                 + "and o.concept_id=165535  "
                 + "and o.value_coded in(6311,23993) "
-                + "and e.encounter_datetime>=:startDate  "
                 + "and e.encounter_datetime<=:endDate "
-                + "and e.location_id=:location ";
+                + "and e.location_id=:location "
+                + "group by p.patient_id "
+                + ")final ";
 
     public static final String
         findPatientsWithScreeningCriteriaEqualsReintegratedOrPooradherenceInOtherSources =
@@ -158,16 +166,20 @@ public interface ResumoMensalCetaQueries {
 
     public static final String
         findPatientsWithScreeningCriteriaPsychosocialFactorsOnCetaInitialForm =
-            "select p.patient_id from patient p "
+	            "select final.patient_id "
+	            + "from "
+	            + "( "
+	            + "select p.patient_id,max(e.encounter_datetime) from patient p "
                 + "inner join encounter  e on e.patient_id=p.patient_id "
                 + "inner join obs o on o.encounter_id=e.encounter_id "
                 + "where p.voided=0  "
                 + "and e.voided=0 and o.voided=0  "
                 + "and e.encounter_type=97 "
                 + "and o.concept_id=6193	  "
-                + "and e.encounter_datetime>=:startDate  "
                 + "and e.encounter_datetime<=:endDate "
-                + "and e.location_id=:location ";
+                + "and e.location_id=:location "
+                + "group by p.patient_id "
+                + ")final ";
 
     public static final String findPatientsWithScreeningCriteriaPsychosocialFactorsOnOtherSorces =
         "select p.patient_id from patient p "
@@ -189,7 +201,6 @@ public interface ResumoMensalCetaQueries {
             + "where pg.voided=0  "
             + "and p.voided=0  "
             + "and program_id=1  "
-            + "and date_enrolled>=:startDate  "
             + "and date_enrolled<=:endDate "
             + "and location_id=:location "
             + "and ps.state in(1,28)  "
@@ -200,7 +211,6 @@ public interface ResumoMensalCetaQueries {
             + "where pg.voided=0  "
             + "and p.voided=0  "
             + "and program_id=2  "
-            + "and date_enrolled>=:startDate  "
             + "and date_enrolled<=:endDate "
             + "and location_id=:location  "
             + ") "
@@ -216,7 +226,6 @@ public interface ResumoMensalCetaQueries {
             + "and o.voided=0 "
             + "and e.encounter_type=53 "
             + "and o.concept_id=23891 "
-            + "and o.value_datetime>=:startDate  "
             + "and o.value_datetime<=:endDate "
             + "and e.location_id=:location "
             + ")fichaResumo "
@@ -227,7 +236,6 @@ public interface ResumoMensalCetaQueries {
             + "where p.voided=0  "
             + "and e.encounter_type in(18,52)  "
             + "and e.voided=0  "
-            + "and e.encounter_datetime>=:startDate  "
             + "and e.encounter_datetime<=:endDate  "
             + "and e.location_id=:location  "
             + "group by p.patient_id  "
@@ -350,7 +358,7 @@ public interface ResumoMensalCetaQueries {
             + "and e.voided=0 "
             + "and o.voided=0 "
             + "and e.encounter_type=97 "
-            + "and o.concept_id=165549 "
+            + "and o.concept_id=165552 "
             + "and o.value_coded in(1065,165550,165551) "
             + "and e.encounter_datetime<=:endDate "
             + "and e.location_id=:location "

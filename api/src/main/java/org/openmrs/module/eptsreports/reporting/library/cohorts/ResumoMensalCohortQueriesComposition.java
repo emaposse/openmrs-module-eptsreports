@@ -88,7 +88,7 @@ public class ResumoMensalCohortQueriesComposition {
             mappings));
 
     definition.setCompositionString(
-        "FICHAFICABEM AND (SECONDCONSULTATION OR CV OR REINTEGRETED OR PSYCHOSOCIALFACTORS)");
+        "FICHAFICABEM OR SECONDCONSULTATION OR CV OR REINTEGRETED OR PSYCHOSOCIALFACTORS");
 
     return definition;
   }
