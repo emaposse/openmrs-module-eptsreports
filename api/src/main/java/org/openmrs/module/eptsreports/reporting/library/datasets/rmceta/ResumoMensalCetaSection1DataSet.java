@@ -211,7 +211,7 @@ public class ResumoMensalCetaSection1DataSet extends BaseDataSet {
         new ColumnParameters("totalM", "total male", "gender=M|state=second-consultation", "07");
 
     ColumnParameters totalF =
-        new ColumnParameters("totalM", "total femele", "gender=F|state=second-consultation", "08");
+        new ColumnParameters("totalF", "total femele", "gender=F|state=second-consultation", "08");
 
     return Arrays.asList(
         fifteenTo19M,
@@ -220,7 +220,7 @@ public class ResumoMensalCetaSection1DataSet extends BaseDataSet {
         fifteenTo19F,
         twentyTo24F,
         twentyFivePlusF,
-        totalF,
-        totalM);
+        totalM,
+        totalF);
   }
 }

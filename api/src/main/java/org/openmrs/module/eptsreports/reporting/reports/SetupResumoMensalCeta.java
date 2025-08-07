@@ -29,9 +29,7 @@ import org.openmrs.module.eptsreports.reporting.library.datasets.rmceta.ResumoMe
 import org.openmrs.module.eptsreports.reporting.library.datasets.rmceta.ResumoMensalCetaSection4DataSet;
 import org.openmrs.module.eptsreports.reporting.library.datasets.rmceta.ResumoMensalCetaSection5DataSet;
 import org.openmrs.module.eptsreports.reporting.library.datasets.rmceta.ResumoMensalCetaSection6DataSet;
-import org.openmrs.module.eptsreports.reporting.library.queries.BaseQueries;
 import org.openmrs.module.eptsreports.reporting.reports.manager.EptsDataExportManager;
-import org.openmrs.module.eptsreports.reporting.utils.EptsReportUtils;
 import org.openmrs.module.reporting.ReportingConstants;
 import org.openmrs.module.reporting.ReportingException;
 import org.openmrs.module.reporting.evaluation.parameter.Mapped;
@@ -113,11 +111,6 @@ public class SetupResumoMensalCeta extends EptsDataExportManager {
     rd.addDataSetDefinition(
         "SC",
         Mapped.mapStraightThrough(this.sismaCodeDataSet.constructDataset(this.getParameters())));
-    rd.setBaseCohortDefinition(
-        EptsReportUtils.map(
-            this.genericCohortQueries.generalSql(
-                "baseCohortQuery", BaseQueries.getBaseCohortQuery()),
-            "endDate=${endDate},location=${location}"));
     return rd;
   }
 

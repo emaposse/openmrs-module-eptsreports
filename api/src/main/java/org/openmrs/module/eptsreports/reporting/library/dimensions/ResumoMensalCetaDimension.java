@@ -3,7 +3,8 @@ package org.openmrs.module.eptsreports.reporting.library.dimensions;
 import java.util.Date;
 import org.openmrs.Location;
 import org.openmrs.module.eptsreports.reporting.library.cohorts.GenericCohortQueries;
-import org.openmrs.module.eptsreports.reporting.library.queries.ResumoMensalCetaQueries;
+import org.openmrs.module.eptsreports.reporting.library.queries.Ceta;
+import org.openmrs.module.eptsreports.reporting.utils.CetaType;
 import org.openmrs.module.eptsreports.reporting.utils.EptsReportUtils;
 import org.openmrs.module.reporting.evaluation.parameter.Parameter;
 import org.openmrs.module.reporting.indicator.dimension.CohortDefinitionDimension;
@@ -29,42 +30,35 @@ public class ResumoMensalCetaDimension {
         "second-consultation",
         EptsReportUtils.map(
             this.genericCohortQueries.generalSql(
-                "2a consulta TARV",
-                ResumoMensalCetaQueries.QUERY
-                    .findPatientsWithScreeningCriteriaSegundARTConsultationInCetaInitialForm),
+                "2a consulta TARV", Ceta.findCetaDesagragation(CetaType.One)),
             mappings));
 
     dimension.addCohortDefinition(
         "high-vl",
         EptsReportUtils.map(
             this.genericCohortQueries.generalSql(
-                "CV>1000 cp/ml",
-                ResumoMensalCetaQueries.QUERY.findPatientsWithHighViralLoadResultInCetaInitialForm),
+                "CV>1000 cp/ml", Ceta.findCetaDesagragation(CetaType.Two)),
             mappings));
 
     dimension.addCohortDefinition(
         "reintegreted",
         EptsReportUtils.map(
             this.genericCohortQueries.generalSql(
-                "Reintegrado / Ma Adesao",
-                ResumoMensalCetaQueries.QUERY
-                    .findPatientsWithScreeningCriteriaEqualsReintegratedOrPooradherenceInCetaForm),
+                "Reintegrado/Ma Adesao", Ceta.findCetaDesagragation(CetaType.Tree)),
             mappings));
 
     dimension.addCohortDefinition(
         "psychosocial-factors",
         EptsReportUtils.map(
             this.genericCohortQueries.generalSql(
-                "Factores Psicossociais",
-                ResumoMensalCetaQueries.QUERY
-                    .findPatientsWithScreeningCriteriaPsychosocialFactorsOnCetaInitialForm),
+                "Factores Psicossociais", Ceta.findCetaDesagragation(CetaType.Four)),
             mappings));
 
     dimension.addCohortDefinition(
         "exclusion",
         EptsReportUtils.map(
             this.genericCohortQueries.generalSql(
-                "Factores Psicossociais", ResumoMensalCetaQueries.QUERY.exclusion),
+                "Sem Informacao", Ceta.findCetaDesagragation(CetaType.Five)),
             mappings));
 
     return dimension;
