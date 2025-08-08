@@ -19,10 +19,9 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
+
 import org.openmrs.module.eptsreports.reporting.library.cohorts.GenericCohortQueries;
-import org.openmrs.module.eptsreports.reporting.library.datasets.DatimCodeDataSet;
 import org.openmrs.module.eptsreports.reporting.library.datasets.LocationDataSetDefinition;
-import org.openmrs.module.eptsreports.reporting.library.datasets.SismaCodeDataSet;
 import org.openmrs.module.eptsreports.reporting.library.datasets.rmceta.ResumoMensalCetaSection1DataSet;
 import org.openmrs.module.eptsreports.reporting.library.datasets.rmceta.ResumoMensalCetaSection2DataSet;
 import org.openmrs.module.eptsreports.reporting.library.datasets.rmceta.ResumoMensalCetaSection3DataSet;
@@ -47,12 +46,7 @@ public class SetupResumoMensalCeta extends EptsDataExportManager {
   @Autowired private ResumoMensalCetaSection4DataSet resumoMensalCetaSection4DataSet;
   @Autowired private ResumoMensalCetaSection5DataSet resumoMensalCetaSection5DataSet;
   @Autowired private ResumoMensalCetaSection6DataSet resumoMensalCetaSection6DataSet;
-
   @Autowired protected GenericCohortQueries genericCohortQueries;
-
-  @Autowired private DatimCodeDataSet datimCodeDataSet;
-
-  @Autowired private SismaCodeDataSet sismaCodeDataSet;
 
   @Override
   public String getVersion() {
