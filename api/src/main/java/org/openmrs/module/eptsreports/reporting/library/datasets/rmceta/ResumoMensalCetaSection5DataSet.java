@@ -28,7 +28,9 @@ public class ResumoMensalCetaSection5DataSet extends BaseDataSet {
 
     final CohortIndicatorDataSetDefinition dataSetDefinition =
         new CohortIndicatorDataSetDefinition();
-    dataSetDefinition.setName("IMR1 B Data Set");
+
+    dataSetDefinition.setName("Resumo Mensal CETA Secção 5");
+
     dataSetDefinition.addParameters(this.getParameters());
 
     final String mappings = "startDate=${startDate},endDate=${endDate},location=${location}";

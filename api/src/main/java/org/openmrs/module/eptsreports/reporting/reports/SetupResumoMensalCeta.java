@@ -32,7 +32,6 @@ import org.openmrs.module.eptsreports.reporting.library.datasets.rmceta.ResumoMe
 import org.openmrs.module.eptsreports.reporting.reports.manager.EptsDataExportManager;
 import org.openmrs.module.reporting.ReportingConstants;
 import org.openmrs.module.reporting.ReportingException;
-import org.openmrs.module.reporting.evaluation.parameter.Mapped;
 import org.openmrs.module.reporting.report.ReportDesign;
 import org.openmrs.module.reporting.report.definition.PeriodIndicatorReportDefinition;
 import org.openmrs.module.reporting.report.definition.ReportDefinition;
@@ -72,12 +71,12 @@ public class SetupResumoMensalCeta extends EptsDataExportManager {
 
   @Override
   public String getName() {
-    return "Resumo Mensal Ceta";
+    return "Resumo Mensal CETA";
   }
 
   @Override
   public String getDescription() {
-    return "Resumo Mensal Ceta";
+    return "Resumo Mensal CETA";
   }
 
   @Override
@@ -105,12 +104,6 @@ public class SetupResumoMensalCeta extends EptsDataExportManager {
         "R4", mapStraightThrough(resumoMensalCetaSection5DataSet.constructDataSet()));
     rd.addDataSetDefinition(
         "R", mapStraightThrough(resumoMensalCetaSection6DataSet.constructDataSet()));
-    rd.addDataSetDefinition(
-        "D",
-        Mapped.mapStraightThrough(this.datimCodeDataSet.constructDataset(this.getParameters())));
-    rd.addDataSetDefinition(
-        "SC",
-        Mapped.mapStraightThrough(this.sismaCodeDataSet.constructDataset(this.getParameters())));
     return rd;
   }
 
