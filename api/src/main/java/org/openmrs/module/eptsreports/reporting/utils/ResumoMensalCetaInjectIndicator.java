@@ -65,9 +65,7 @@ public class ResumoMensalCetaInjectIndicator {
         this.eptsGeneralIndicator.getIndicator(
             "indicator 5",
             EptsReportUtils.map(
-                this.reMensalCetaCohortQueries
-                    .findPatientsWhoAreStartedSMTretmentInCetaInitialFormIndicator5(),
-                mappings)));
+                this.resumoMensalCohortQueriesComposition.getIdicator5(), mappings)));
 
     cohorteMap.put(
         6,
@@ -75,7 +73,7 @@ public class ResumoMensalCetaInjectIndicator {
             "indicator 6",
             EptsReportUtils.map(
                 this.reMensalCetaCohortQueries
-                    .findPatientsWhoAreFollowpCetaUntilTheEndOfMonthIndicator6(),
+                    .findPatientsWhoAreStartedSMTretmentInCetaInitialFormIndicator6(),
                 mappings)));
 
     cohorteMap.put(
@@ -83,7 +81,9 @@ public class ResumoMensalCetaInjectIndicator {
         this.eptsGeneralIndicator.getIndicator(
             "indicator 7",
             EptsReportUtils.map(
-                this.resumoMensalCohortQueriesComposition.getIdicator7(), mappings)));
+                this.reMensalCetaCohortQueries
+                    .findPatientsWhoAreFollowpCetaUntilTheEndOfMonthIndicator7(),
+                mappings)));
 
     cohorteMap.put(
         8,
@@ -125,8 +125,7 @@ public class ResumoMensalCetaInjectIndicator {
         this.eptsGeneralIndicator.getIndicator(
             "indicator 13",
             EptsReportUtils.map(
-                this.reMensalCetaCohortQueries.findPatientsWhoAreInterruptTretmentIndicator13(),
-                mappings)));
+                this.resumoMensalCohortQueriesComposition.getIdicator13(), mappings)));
 
     cohorteMap.put(
         14,
@@ -154,7 +153,8 @@ public class ResumoMensalCetaInjectIndicator {
         this.eptsGeneralIndicator.getIndicator(
             "indicator 17",
             EptsReportUtils.map(
-                this.resumoMensalCohortQueriesComposition.getIdicator17(), mappings)));
+                this.reMensalCetaCohortQueries.findPatientsWhoAreInterruptTretmentIndicator17(),
+                mappings)));
 
     cohorteMap.put(
         18,
@@ -168,7 +168,35 @@ public class ResumoMensalCetaInjectIndicator {
         this.eptsGeneralIndicator.getIndicator(
             "indicator 19",
             EptsReportUtils.map(
-                reMensalCetaCohortQueries.findPatientsWhoEndTrementIndicator19(), mappings)));
+                this.resumoMensalCohortQueriesComposition.getIdicator19(), mappings)));
+
+    cohorteMap.put(
+        20,
+        this.eptsGeneralIndicator.getIndicator(
+            "indicator 20",
+            EptsReportUtils.map(
+                this.resumoMensalCohortQueriesComposition.getIdicator20(), mappings)));
+
+    cohorteMap.put(
+        21,
+        this.eptsGeneralIndicator.getIndicator(
+            "indicator 21",
+            EptsReportUtils.map(
+                this.resumoMensalCohortQueriesComposition.getIdicator21(), mappings)));
+
+    cohorteMap.put(
+        22,
+        this.eptsGeneralIndicator.getIndicator(
+            "indicator 22",
+            EptsReportUtils.map(
+                this.resumoMensalCohortQueriesComposition.getIdicator22(), mappings)));
+
+    cohorteMap.put(
+        23,
+        this.eptsGeneralIndicator.getIndicator(
+            "indicator 23",
+            EptsReportUtils.map(
+                this.reMensalCetaCohortQueries.findPatientsWhoEndTrementIndicator23(), mappings)));
 
     return cohorteMap.get(param);
   }

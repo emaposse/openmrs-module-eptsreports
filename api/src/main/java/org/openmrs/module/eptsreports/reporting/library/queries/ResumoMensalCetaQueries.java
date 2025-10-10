@@ -214,54 +214,7 @@ public interface ResumoMensalCetaQueries {
             + "and o.value_coded in(1956,6303,207,1603)	  "
             + "and e.encounter_datetime>=:startDate  "
             + "and e.encounter_datetime<=:endDate "
-            + "and e.location_id=:location "
-            + "union "
-            + "select  pg.patient_id from  patient p   "
-            + "inner join patient_program pg on p.patient_id=pg.patient_id "
-            + "inner join patient_state ps on   ps.patient_program_id=pg.patient_program_id                        "
-            + "where pg.voided=0  "
-            + "and p.voided=0  "
-            + "and program_id=1  "
-            + "and date_enrolled<=:endDate "
-            + "and location_id=:location "
-            + "and ps.state in(1,28)  "
-            + "and pg.patient_id not in "
-            + "( "
-            + "select  pg.patient_id from  patient p   "
-            + "inner join patient_program pg on p.patient_id=pg.patient_id                          "
-            + "where pg.voided=0  "
-            + "and p.voided=0  "
-            + "and program_id=2  "
-            + "and date_enrolled<=:endDate "
-            + "and location_id=:location  "
-            + ") "
-            + "union "
-            + "select fichaResumo.patient_id "
-            + "from "
-            + "( "
-            + "select p.patient_id, o.value_datetime data from patient p "
-            + "inner join encounter  e on e.patient_id=p.patient_id "
-            + "inner  join obs o on o.encounter_id=e.encounter_id "
-            + "where p.voided=0  "
-            + "and e.voided=0 "
-            + "and o.voided=0 "
-            + "and e.encounter_type=53 "
-            + "and o.concept_id=23891 "
-            + "and o.value_datetime<=:endDate "
-            + "and e.location_id=:location "
-            + ")fichaResumo "
-            + "left join "
-            + "( "
-            + "select e.patient_id, min(e.encounter_datetime) as art_start_date from patient p  "
-            + "inner join encounter e on p.patient_id=e.patient_id  "
-            + "where p.voided=0  "
-            + "and e.encounter_type in(18,52)  "
-            + "and e.voided=0  "
-            + "and e.encounter_datetime<=:endDate  "
-            + "and e.location_id=:location  "
-            + "group by p.patient_id  "
-            + ")lev on fichaResumo.patient_id=lev.patient_id "
-            + "where lev.patient_id is null ";
+            + "and e.location_id=:location ";
 
     public static final String findPatientsWhoHaveFichaFicaBemDuringReportingPeriodIndicator1 =
         "select p.patient_id from patient p "
@@ -304,7 +257,20 @@ public interface ResumoMensalCetaQueries {
             + "and e.encounter_datetime<=:endDate "
             + "and e.location_id=:location ";
 
-    public static final String findPatientsWhoAreReferedTwoFollowUpCommonMentalDiseaseIndicator4 =
+    public static final String findPatientsWhoHaveEpilepsyPositiveResulteIndicator4 =
+        "select p.patient_id from patient p "
+            + "inner join encounter  e on e.patient_id=p.patient_id "
+            + "inner join obs o on o.encounter_id=e.encounter_id "
+            + "where p.voided=0 "
+            + "and e.voided=0 and o.voided=0 "
+            + "and e.encounter_type=96 "
+            + "and o.concept_id=165464 "
+            + "and o.value_coded=151 "
+            + "and e.encounter_datetime>=:startDate "
+            + "and e.encounter_datetime<=:endDate "
+            + "and e.location_id=:location ";
+
+    public static final String findPatientsWhoAreReferedTwoFollowUpCommonMentalDiseaseIndicator5 =
         "select p.patient_id from patient p "
             + "inner join encounter  e on e.patient_id=p.patient_id "
             + "inner join obs o on o.encounter_id=e.encounter_id "
@@ -317,7 +283,7 @@ public interface ResumoMensalCetaQueries {
             + "and e.encounter_datetime<=:endDate "
             + "and e.location_id=:location ";
 
-    public static final String findPatientsWhoAreStartedSMTretmentInCetaInitialFormIndicator5 =
+    public static final String findPatientsWhoAreStartedSMTretmentInCetaInitialFormIndicator6 =
         "select final.patient_id from "
             + "( "
             + "select p.patient_id,o.obs_datetime from patient p "
@@ -342,7 +308,7 @@ public interface ResumoMensalCetaQueries {
             + "group by p.patient_id "
             + ")final";
 
-    public static final String findPatientsWhoAreFollowpCetaUntilTheEndOfMonthIndicator6 =
+    public static final String findPatientsWhoAreFollowpCetaUntilTheEndOfMonthIndicator7 =
         "select p.patient_id from patient p "
             + "inner join encounter  e on e.patient_id=p.patient_id "
             + "where p.voided=0 "
@@ -352,80 +318,148 @@ public interface ResumoMensalCetaQueries {
             + "and e.encounter_datetime<=:endDate "
             + "and e.location_id=:location ";
 
-    public static final String
-        findPatientsWhoHaveatAtLeastOneSuicideAttemptAtTheEntranceIndicator7 =
-            "select final.patient_id from "
-                + "( "
-                + "select p.patient_id,max(e.encounter_datetime) encounter_datetime from patient p "
-                + "inner join encounter  e on e.patient_id=p.patient_id "
-                + "inner join obs o on o.encounter_id=e.encounter_id "
-                + "where p.voided=0 "
-                + "and e.voided=0 and o.voided=0 "
-                + "and e.encounter_type=96 "
-                + "and o.concept_id=165460 "
-                + "and o.value_coded=703 "
-                + "and e.encounter_datetime<=:endDate "
-                + "and e.location_id=:location "
-                + "group by p.patient_id "
-                + ")final ";
-
-    public static final String findPatientsWhoStartedSMCetaIndicator8 =
-        "select final.patient_id from "
-            + "( "
-            + "select p.patient_id,max(e.encounter_datetime) encounter_datetime from patient p "
-            + "inner join encounter  e on e.patient_id=p.patient_id "
-            + "inner join obs o on o.encounter_id=e.encounter_id "
-            + "where p.voided=0 "
-            + "and e.voided=0 "
-            + "and o.voided=0 "
-            + "and e.encounter_type=97 "
-            + "and o.concept_id=165552 "
-            + "and o.value_coded in(1065,165550,165551) "
-            + "and e.encounter_datetime<=:endDate "
-            + "and e.location_id=:location "
-            + "group by p.patient_id "
-            + ")final ";
-
-    public static final String findPatientsWhoStartedSMCetaIndicator9 =
+    public static final String findPatientsWhoHaveaIdeationSuicideAttemptAtTheEntranceIndicator8 =
         "select final.patient_id from  "
-            + "(   "
-            + "select p.patient_id,max(e.encounter_datetime) encounter_datetime from patient p   "
-            + "inner join encounter  e on e.patient_id=p.patient_id   "
-            + "inner join obs grupo on grupo.encounter_id=e.encounter_id  "
-            + "inner join obs c on c.encounter_id=e.encounter_id "
-            + "where p.voided=0   "
-            + "and e.voided=0   "
-            + "and c.voided=0 "
-            + "and grupo.voided=0 "
-            + "and e.encounter_type=97 "
-            + "and c.concept_id in(207,9043) "
-            + "and c.value_coded=1065 "
-            + "and e.encounter_datetime<=:endDate   "
-            + "and e.location_id=:location   "
-            + "and ((grupo.concept_id=165539 and grupo.value_numeric>0) or (grupo.concept_id=165540 and grupo.value_numeric>0))  "
+            + "(  "
+            + "select p.patient_id,max(e.encounter_datetime) encounter_datetime from patient p  "
+            + "inner join encounter  e on e.patient_id=p.patient_id  "
+            + "inner join obs o on o.encounter_id=e.encounter_id  "
+            + "where p.voided=0  "
+            + "and e.voided=0 and o.voided=0  "
+            + "and e.encounter_type=96  "
+            + "and o.concept_id=165460  "
+            + "and o.value_coded=703  "
+            + "and e.encounter_datetime<=:endDate  "
+            + "and e.location_id=:location  "
+            + "group by p.patient_id  "
+            + ")final  "
+            + "left join "
+            + "( "
+            + "select p.patient_id,max(e.encounter_datetime) encounter_datetime from patient p  "
+            + "inner join encounter  e on e.patient_id=p.patient_id  "
+            + "inner join obs o on o.encounter_id=e.encounter_id  "
+            + "where p.voided=0  "
+            + "and e.voided=0 and o.voided=0  "
+            + "and e.encounter_type=97  "
+            + "and o.concept_id=165549  "
+            + "and o.value_coded in(1065,165551) "
+            + "and e.encounter_datetime<=:endDate  "
+            + "and e.location_id=:location  "
+            + "group by p.patient_id "
+            + ")filtro on final.patient_id=filtro.patient_id  "
+            + "where filtro.patient_id is not null ";
+
+    public static final String
+        findPatientsWhoHaveatAtLeastOneSuicideAttemptAtTheEntranceIndicator9 =
+            "select final.patient_id from  "
+                + "(  "
+                + "select p.patient_id,max(e.encounter_datetime) encounter_datetime from patient p  "
+                + "inner join encounter  e on e.patient_id=p.patient_id  "
+                + "inner join obs o on o.encounter_id=e.encounter_id  "
+                + "where p.voided=0  "
+                + "and e.voided=0 and o.voided=0  "
+                + "and e.encounter_type=96  "
+                + "and o.concept_id=165460  "
+                + "and o.value_coded=703  "
+                + "and e.encounter_datetime<=:endDate  "
+                + "and e.location_id=:location  "
+                + "group by p.patient_id  "
+                + ")final  "
+                + "left join  "
+                + "( "
+                + "select p.patient_id,max(e.encounter_datetime) encounter_datetime from patient p  "
+                + "inner join encounter  e on e.patient_id=p.patient_id  "
+                + "inner join obs o on o.encounter_id=e.encounter_id  "
+                + "where p.voided=0  "
+                + "and e.voided=0 and o.voided=0  "
+                + "and e.encounter_type=97  "
+                + "and o.concept_id=165610  "
+                + "and o.value_coded in(1065,165551) "
+                + "and e.encounter_datetime<=:endDate  "
+                + "and e.location_id=:location  "
+                + "group by p.patient_id  "
+                + ")filtro on final.patient_id=filtro.patient_id "
+                + "where filtro.patient_id is not null ";
+
+    public static final String findPatientsWithHomicideIdeationAtTheEntranceIndicator10 =
+        "select final.patient_id from  "
+            + "(  "
+            + "select p.patient_id,max(e.encounter_datetime) encounter_datetime from patient p  "
+            + "inner join encounter  e on e.patient_id=p.patient_id  "
+            + "inner join obs o on o.encounter_id=e.encounter_id  "
+            + "where p.voided=0  "
+            + "and e.voided=0 and o.voided=0  "
+            + "and e.encounter_type=97  "
+            + "and o.concept_id=165552  "
+            + "and o.value_coded in(1065,165551) "
+            + "and e.encounter_datetime<=:endDate "
+            + "and e.location_id=:location  "
             + "group by p.patient_id  "
             + ")final ";
 
-    public static final String findPatientsWhoStartedSMCetaIndicator10 =
-        "select final.patient_id from   "
-            + "(    "
-            + "select p.patient_id,max(e.encounter_datetime) encounter_datetime from patient p "
-            + "inner join encounter  e on e.patient_id=p.patient_id    "
-            + "inner join obs grupo on grupo.encounter_id=e.encounter_id  "
-            + "inner join obs c on c.encounter_id=e.encounter_id  "
+    public static final String findPatientsWithAtLeastOneAttemptedHomicedeAtEntry11 =
+        "select final.patient_id from  "
+            + "(  "
+            + "select p.patient_id,max(e.encounter_datetime) encounter_datetime from patient p  "
+            + "inner join encounter  e on e.patient_id=p.patient_id  "
+            + "inner join obs o on o.encounter_id=e.encounter_id  "
+            + "where p.voided=0  "
+            + "and e.voided=0 "
+            + "and o.voided=0  "
+            + "and e.encounter_type=97  "
+            + "and o.concept_id=165611  "
+            + "and o.value_coded in(1065,165551) "
+            + "and e.encounter_datetime<=:endDate  "
+            + "and e.location_id=:location  "
+            + "group by p.patient_id  "
+            + ")final ";
+
+    public static final String findPatientsWithDepressionSymptomsIndicator12 =
+        "select p.patient_id from patient p   "
+            + "inner join encounter  e on e.patient_id=p.patient_id   "
+            + "inner join obs conv on conv.encounter_id=e.encounter_id "
+            + "inner join obs grupo on grupo.encounter_id=e.encounter_id   "
             + "where p.voided=0    "
             + "and e.voided=0    "
-            + "and c.voided=0 "
             + "and grupo.voided=0  "
             + "and e.encounter_type=97  "
-            + "and c.concept_id=20606 "
-            + "and c.value_coded=1065  "
+            + "and conv.concept_id=165541 "
             + "and e.encounter_datetime<=:endDate    "
-            + "and e.location_id=:location    "
-            + "and ((grupo.concept_id=165539 and grupo.value_numeric>0) or (grupo.concept_id=165540 and grupo.value_numeric>0))   "
-            + "group by p.patient_id   "
-            + ")final ";
-    public static final String findPatientsWhoStartedSMCetaIndicator11 =
+            + "and e.location_id=:location  "
+            + "and (grupo.concept_id=165539 and grupo.value_numeric>0)   "
+            + "group by p.patient_id  ";
+
+    public static final String findPatientsWithAnxietySymptomsIndicator13 =
+        "select p.patient_id from patient p   "
+            + "inner join encounter  e on e.patient_id=p.patient_id   "
+            + "inner join obs conv on conv.encounter_id=e.encounter_id "
+            + "inner join obs grupo on grupo.encounter_id=e.encounter_id   "
+            + "where p.voided=0    "
+            + "and e.voided=0    "
+            + "and grupo.voided=0  "
+            + "and e.encounter_type=97  "
+            + "and conv.concept_id=165542 "
+            + "and e.encounter_datetime<=:endDate    "
+            + "and e.location_id=:location  "
+            + "and (grupo.concept_id=165539 and grupo.value_numeric>0)   "
+            + "group by p.patient_id  ";
+
+    public static final String findPatientsWithTraumaSymptomsIndicator14 =
+        "select p.patient_id from patient p   "
+            + "inner join encounter  e on e.patient_id=p.patient_id   "
+            + "inner join obs conv on conv.encounter_id=e.encounter_id "
+            + "inner join obs grupo on grupo.encounter_id=e.encounter_id   "
+            + "where p.voided=0    "
+            + "and e.voided=0    "
+            + "and grupo.voided=0  "
+            + "and e.encounter_type=97  "
+            + "and conv.concept_id=165543 "
+            + "and e.encounter_datetime<=:endDate    "
+            + "and e.location_id=:location  "
+            + "and (grupo.concept_id=165539 and grupo.value_numeric>0)   "
+            + "group by p.patient_id  ";
+
+    public static final String findPatientswhoAbuseAlcoholicBeveragesIndicator15 =
         "select final.patient_id  "
             + "from ( "
             + "select final.patient_id,max(final.encounter_datetime) encounter_datetime from (   "
@@ -456,7 +490,7 @@ public interface ResumoMensalCetaQueries {
             + "group by final.patient_id  "
             + ")final ";
 
-    public static final String findPatientsWhoStartedSMCetaIndicator12 =
+    public static final String findPatientswhoConsumeOthePsychoactiveSubtancesIndicator16 =
         "select final.patient_id "
             + "from "
             + "( "
@@ -472,7 +506,8 @@ public interface ResumoMensalCetaQueries {
             + "and e.location_id=:location  "
             + "group by p.patient_id "
             + ")final ";
-    public static final String findPatientsWhoAreInterruptTretmentIndicator13 =
+
+    public static final String findPatientsWhoAreInterruptTretmentIndicator17 =
         "select consultaCeta.patient_id from  "
             + "(  "
             + "select consultaCeta89Dias.patient_id from  "
@@ -517,7 +552,7 @@ public interface ResumoMensalCetaQueries {
             + ")tratamento on tratamento.patient_id=consultaCeta.patient_id  "
             + "where tratamento.patient_id is null  ";
 
-    public static final String findPatientsWhoAreInterruptTretmentIndicator14 =
+    public static final String findPatientsWhoAreReferedIndicator18 =
         "select final.patient_id from "
             + "( "
             + "select p.patient_id,max(e.encounter_datetime) encounter_datetime from patient p   "
@@ -534,7 +569,7 @@ public interface ResumoMensalCetaQueries {
             + "group by p.patient_id "
             + ")final ";
 
-    public static final String findPatientsWhoAreInterruptTretmentIndicator15 =
+    public static final String findPatientsWhoAreTransferedIndicator19 =
         "select final.patient_id from "
             + "( "
             + "select p.patient_id,max(e.encounter_datetime) encounter_datetime from patient p   "
@@ -551,7 +586,7 @@ public interface ResumoMensalCetaQueries {
             + "group by p.patient_id "
             + ")final ";
 
-    public static final String findPatientsWhoAreReintegretedIndicator16 =
+    public static final String findPatientsWhoAreReintegretedIndicator20 =
         "select consultaCeta.patient_id "
             + "from "
             + "( "
@@ -577,7 +612,7 @@ public interface ResumoMensalCetaQueries {
             + ")exclusao60Dias on exclusao60Dias.patient_id=consultaCeta.patient_id "
             + "where exclusao60Dias.patient_id is null ";
 
-    public static final String findPatientsWhoAreDiedIndicator17 =
+    public static final String findPatientsWhoAreDiedIndicator21 =
         "select final.patient_id from "
             + "( "
             + "select p.patient_id,max(e.encounter_datetime) encounter_datetime from patient p   "
@@ -594,7 +629,7 @@ public interface ResumoMensalCetaQueries {
             + "group by p.patient_id "
             + ")final ";
 
-    public static final String findPatientsWhoEndTrementIndicator19 =
+    public static final String findPatientsWhoEndTrementIndicator23 =
         "select ConsultaCeta.patient_id "
             + "from "
             + "( "

@@ -54,12 +54,22 @@ public class ResumoMensalCohortQueriesComposition {
     definition.addParameter(new Parameter("location", "location", Date.class));
 
     final String mappings = "startDate=${startDate},endDate=${endDate},location=${location}";
+    final String mappingsFicaBem =
+        "startDate=${startDate-12m+1d},endDate=${startDate},location=${location}";
+
     definition.addSearch(
         "FICHAFICABEM",
         EptsReportUtils.map(
             this.resumoMensalCetaCohortQueries
                 .findPatientsWhoHaveFichaFicaBemDuringReportingPeriodIndicator1(),
             mappings));
+
+    definition.addSearch(
+        "FICHAFICABEMEEXCLUSION",
+        EptsReportUtils.map(
+            this.resumoMensalCetaCohortQueries
+                .findPatientsWhoHaveFichaFicaBemDuringReportingPeriodIndicator1(),
+            mappingsFicaBem));
 
     definition.addSearch(
         "SECONDCONSULTATION",
@@ -88,7 +98,7 @@ public class ResumoMensalCohortQueriesComposition {
             mappings));
 
     definition.setCompositionString(
-        "FICHAFICABEM OR SECONDCONSULTATION OR CV OR REINTEGRETED OR PSYCHOSOCIALFACTORS");
+        "FICHAFICABEM OR (SECONDCONSULTATION NOT FICHAFICABEMEEXCLUSION) OR (CV NOT FICHAFICABEMEEXCLUSION) OR (REINTEGRETED NOT FICHAFICABEMEEXCLUSION) OR (PSYCHOSOCIALFACTORS NOT FICHAFICABEMEEXCLUSION)");
 
     return definition;
   }
@@ -165,7 +175,7 @@ public class ResumoMensalCohortQueriesComposition {
         "COMMUNMENTAL",
         EptsReportUtils.map(
             this.resumoMensalCetaCohortQueries
-                .findPatientsWhoAreReferedTwoFollowUpCommonMentalDiseaseIndicator4(),
+                .findPatientsWhoHaveEpilepsyPositiveResulteIndicator4(),
             mappings));
 
     definition.setCompositionString("INDICATOR2 AND COMMUNMENTAL");
@@ -173,32 +183,27 @@ public class ResumoMensalCohortQueriesComposition {
     return definition;
   }
 
-  @DocumentedDefinition(value = "getIdicator7")
-  public CohortDefinition getIdicator7() {
+  @DocumentedDefinition(value = "getIdicator5")
+  public CohortDefinition getIdicator5() {
     final CompositionCohortDefinition definition = new CompositionCohortDefinition();
 
-    definition.setName("getIdicator7");
+    definition.setName("getIdicator5");
 
     definition.addParameter(new Parameter("startDate", "Data Inicio Inclusão", Date.class));
     definition.addParameter(new Parameter("endDate", "Data Fim Inclusão", Date.class));
     definition.addParameter(new Parameter("location", "location", Date.class));
 
     final String mappings = "startDate=${startDate},endDate=${endDate},location=${location}";
-    definition.addSearch(
-        "INDICATOR5",
-        EptsReportUtils.map(
-            this.resumoMensalCetaCohortQueries
-                .findPatientsWhoAreStartedSMTretmentInCetaInitialFormIndicator5(),
-            mappings));
+    definition.addSearch("INDICATOR2", EptsReportUtils.map(this.getIdicator2(), mappings));
 
     definition.addSearch(
-        "SUICEDE",
+        "COMMUNMENTAL",
         EptsReportUtils.map(
             this.resumoMensalCetaCohortQueries
-                .findPatientsWhoHaveatAtLeastOneSuicideAttemptAtTheEntranceIndicator7(),
+                .findPatientsWhoAreReferedTwoFollowUpCommonMentalDiseaseIndicator5(),
             mappings));
 
-    definition.setCompositionString("INDICATOR5 AND SUICEDE");
+    definition.setCompositionString("INDICATOR2 AND COMMUNMENTAL");
 
     return definition;
   }
@@ -215,18 +220,20 @@ public class ResumoMensalCohortQueriesComposition {
 
     final String mappings = "startDate=${startDate},endDate=${endDate},location=${location}";
     definition.addSearch(
-        "INDICATOR5",
+        "INDICATOR6",
         EptsReportUtils.map(
             this.resumoMensalCetaCohortQueries
-                .findPatientsWhoAreStartedSMTretmentInCetaInitialFormIndicator5(),
+                .findPatientsWhoAreStartedSMTretmentInCetaInitialFormIndicator6(),
             mappings));
 
     definition.addSearch(
         "SMCETA8",
         EptsReportUtils.map(
-            this.resumoMensalCetaCohortQueries.findPatientsWhoStartedSMCetaIndicator8(), mappings));
+            this.resumoMensalCetaCohortQueries
+                .findPatientsWhoHaveaIdeationSuicideAttemptAtTheEntranceIndicator8(),
+            mappings));
 
-    definition.setCompositionString("INDICATOR5 AND SMCETA8");
+    definition.setCompositionString("INDICATOR6 AND SMCETA8");
 
     return definition;
   }
@@ -243,10 +250,10 @@ public class ResumoMensalCohortQueriesComposition {
 
     final String mappings = "startDate=${startDate},endDate=${endDate},location=${location}";
     definition.addSearch(
-        "INDICATOR5",
+        "INDICATOR6",
         EptsReportUtils.map(
             this.resumoMensalCetaCohortQueries
-                .findPatientsWhoAreStartedSMTretmentInCetaInitialFormIndicator5(),
+                .findPatientsWhoAreStartedSMTretmentInCetaInitialFormIndicator6(),
             mappings));
 
     definition.addSearch(
@@ -254,7 +261,7 @@ public class ResumoMensalCohortQueriesComposition {
         EptsReportUtils.map(
             this.resumoMensalCetaCohortQueries.findPatientsWhoStartedSMCetaIndicator9(), mappings));
 
-    definition.setCompositionString("INDICATOR5 AND SMCETA9");
+    definition.setCompositionString("INDICATOR6 AND SMCETA9");
 
     return definition;
   }
@@ -271,19 +278,20 @@ public class ResumoMensalCohortQueriesComposition {
 
     final String mappings = "startDate=${startDate},endDate=${endDate},location=${location}";
     definition.addSearch(
-        "INDICATOR5",
+        "INDICATOR6",
         EptsReportUtils.map(
             this.resumoMensalCetaCohortQueries
-                .findPatientsWhoAreStartedSMTretmentInCetaInitialFormIndicator5(),
+                .findPatientsWhoAreStartedSMTretmentInCetaInitialFormIndicator6(),
             mappings));
 
     definition.addSearch(
         "SMCETA10",
         EptsReportUtils.map(
-            this.resumoMensalCetaCohortQueries.findPatientsWhoStartedSMCetaIndicator10(),
+            this.resumoMensalCetaCohortQueries
+                .findPatientsWithHomicideIdeationAtTheEntranceIndicator10(),
             mappings));
 
-    definition.setCompositionString("INDICATOR5 AND SMCETA10");
+    definition.setCompositionString("INDICATOR6 AND SMCETA10");
 
     return definition;
   }
@@ -300,19 +308,20 @@ public class ResumoMensalCohortQueriesComposition {
 
     final String mappings = "startDate=${startDate},endDate=${endDate},location=${location}";
     definition.addSearch(
-        "INDICATOR5",
+        "INDICATOR6",
         EptsReportUtils.map(
             this.resumoMensalCetaCohortQueries
-                .findPatientsWhoAreStartedSMTretmentInCetaInitialFormIndicator5(),
+                .findPatientsWhoAreStartedSMTretmentInCetaInitialFormIndicator6(),
             mappings));
 
     definition.addSearch(
         "SMCETA11",
         EptsReportUtils.map(
-            this.resumoMensalCetaCohortQueries.findPatientsWhoStartedSMCetaIndicator11(),
+            this.resumoMensalCetaCohortQueries
+                .findPatientsWithAtLeastOneAttemptedHomicedeAtEntry11(),
             mappings));
 
-    definition.setCompositionString("INDICATOR5 AND SMCETA11");
+    definition.setCompositionString("INDICATOR6 AND SMCETA11");
 
     return definition;
   }
@@ -329,19 +338,48 @@ public class ResumoMensalCohortQueriesComposition {
 
     final String mappings = "startDate=${startDate},endDate=${endDate},location=${location}";
     definition.addSearch(
-        "INDICATOR5",
+        "INDICATOR6",
         EptsReportUtils.map(
             this.resumoMensalCetaCohortQueries
-                .findPatientsWhoAreStartedSMTretmentInCetaInitialFormIndicator5(),
+                .findPatientsWhoAreStartedSMTretmentInCetaInitialFormIndicator6(),
             mappings));
 
     definition.addSearch(
         "SMCETA12",
         EptsReportUtils.map(
-            this.resumoMensalCetaCohortQueries.findPatientsWhoStartedSMCetaIndicator12(),
+            this.resumoMensalCetaCohortQueries.findPatientsWithDepressionSymptomsIndicator12(),
             mappings));
 
-    definition.setCompositionString("INDICATOR5 AND SMCETA12");
+    definition.setCompositionString("INDICATOR6 AND SMCETA12");
+
+    return definition;
+  }
+
+  @DocumentedDefinition(value = "getIdicator13")
+  public CohortDefinition getIdicator13() {
+    final CompositionCohortDefinition definition = new CompositionCohortDefinition();
+
+    definition.setName("getIdicator13");
+
+    definition.addParameter(new Parameter("startDate", "Data Inicio Inclusão", Date.class));
+    definition.addParameter(new Parameter("endDate", "Data Fim Inclusão", Date.class));
+    definition.addParameter(new Parameter("location", "location", Date.class));
+
+    final String mappings = "startDate=${startDate},endDate=${endDate},location=${location}";
+    definition.addSearch(
+        "INDICATOR6",
+        EptsReportUtils.map(
+            this.resumoMensalCetaCohortQueries
+                .findPatientsWhoAreStartedSMTretmentInCetaInitialFormIndicator6(),
+            mappings));
+
+    definition.addSearch(
+        "SMCETA13",
+        EptsReportUtils.map(
+            this.resumoMensalCetaCohortQueries.findPatientsWithAnxietySymptomsIndicator13(),
+            mappings));
+
+    definition.setCompositionString("INDICATOR6 AND SMCETA13");
 
     return definition;
   }
@@ -358,18 +396,19 @@ public class ResumoMensalCohortQueriesComposition {
 
     final String mappings = "startDate=${startDate},endDate=${endDate},location=${location}";
     definition.addSearch(
-        "INDICATOR13",
+        "INDICATOR6",
         EptsReportUtils.map(
-            this.resumoMensalCetaCohortQueries.findPatientsWhoAreInterruptTretmentIndicator13(),
+            this.resumoMensalCetaCohortQueries
+                .findPatientsWhoAreStartedSMTretmentInCetaInitialFormIndicator6(),
             mappings));
 
     definition.addSearch(
         "IT14",
         EptsReportUtils.map(
-            this.resumoMensalCetaCohortQueries.findPatientsWhoAreInterruptTretmentIndicator14(),
+            this.resumoMensalCetaCohortQueries.findPatientsWithTraumaSymptomsIndicator14(),
             mappings));
 
-    definition.setCompositionString("INDICATOR13 AND IT14");
+    definition.setCompositionString("INDICATOR6 AND IT14");
 
     return definition;
   }
@@ -386,18 +425,19 @@ public class ResumoMensalCohortQueriesComposition {
 
     final String mappings = "startDate=${startDate},endDate=${endDate},location=${location}";
     definition.addSearch(
-        "INDICATOR13",
+        "INDICATOR6",
         EptsReportUtils.map(
-            this.resumoMensalCetaCohortQueries.findPatientsWhoAreInterruptTretmentIndicator13(),
+            this.resumoMensalCetaCohortQueries
+                .findPatientsWhoAreStartedSMTretmentInCetaInitialFormIndicator6(),
             mappings));
 
     definition.addSearch(
         "IT15",
         EptsReportUtils.map(
-            this.resumoMensalCetaCohortQueries.findPatientsWhoAreInterruptTretmentIndicator15(),
+            this.resumoMensalCetaCohortQueries.findPatientswhoAbuseAlcoholicBeveragesIndicator15(),
             mappings));
 
-    definition.setCompositionString("INDICATOR13 AND IT15");
+    definition.setCompositionString("INDICATOR6 AND IT15");
 
     return definition;
   }
@@ -417,43 +457,17 @@ public class ResumoMensalCohortQueriesComposition {
         "INDICATOR6",
         EptsReportUtils.map(
             resumoMensalCetaCohortQueries
-                .findPatientsWhoAreFollowpCetaUntilTheEndOfMonthIndicator6(),
+                .findPatientsWhoAreStartedSMTretmentInCetaInitialFormIndicator6(),
             mappings));
 
     definition.addSearch(
         "IT16",
         EptsReportUtils.map(
-            this.resumoMensalCetaCohortQueries.findPatientsWhoAreReintegretedIndicator16(),
+            this.resumoMensalCetaCohortQueries
+                .findPatientswhoConsumeOthePsychoactiveSubtancesIndicator16(),
             mappings));
 
     definition.setCompositionString("INDICATOR6 AND IT16");
-
-    return definition;
-  }
-
-  @DocumentedDefinition(value = "getIdicator17")
-  public CohortDefinition getIdicator17() {
-    final CompositionCohortDefinition definition = new CompositionCohortDefinition();
-
-    definition.setName("getIdicator16");
-
-    definition.addParameter(new Parameter("startDate", "Data Inicio Inclusão", Date.class));
-    definition.addParameter(new Parameter("endDate", "Data Fim Inclusão", Date.class));
-    definition.addParameter(new Parameter("location", "location", Date.class));
-
-    final String mappings = "startDate=${startDate},endDate=${endDate},location=${location}";
-    definition.addSearch(
-        "INDICATOR13",
-        EptsReportUtils.map(
-            this.resumoMensalCetaCohortQueries.findPatientsWhoAreInterruptTretmentIndicator13(),
-            mappings));
-
-    definition.addSearch(
-        "IT17",
-        EptsReportUtils.map(
-            this.resumoMensalCetaCohortQueries.findPatientsWhoAreDiedIndicator17(), mappings));
-
-    definition.setCompositionString("INDICATOR13 AND IT17");
 
     return definition;
   }
@@ -470,18 +484,127 @@ public class ResumoMensalCohortQueriesComposition {
 
     final String mappings = "startDate=${startDate},endDate=${endDate},location=${location}";
     definition.addSearch(
-        "INDICATOR13",
+        "INDICATOR17",
         EptsReportUtils.map(
-            this.resumoMensalCetaCohortQueries.findPatientsWhoAreInterruptTretmentIndicator13(),
+            this.resumoMensalCetaCohortQueries.findPatientsWhoAreInterruptTretmentIndicator17(),
             mappings));
-    definition.addSearch("INDICATOR14", EptsReportUtils.map(this.getIdicator14(), mappings));
+    definition.addSearch(
+        "REFERED",
+        EptsReportUtils.map(
+            resumoMensalCetaCohortQueries.findPatientsWhoAreReferedIndicator18(), mappings));
 
-    definition.addSearch("INDICATOR15", EptsReportUtils.map(this.getIdicator15(), mappings));
-    definition.addSearch("INDICATOR16", EptsReportUtils.map(this.getIdicator16(), mappings));
-    definition.addSearch("INDICATOR17", EptsReportUtils.map(this.getIdicator17(), mappings));
+    definition.setCompositionString("INDICATOR17 AND REFERED");
+
+    return definition;
+  }
+
+  @DocumentedDefinition(value = "getIdicator19")
+  public CohortDefinition getIdicator19() {
+    final CompositionCohortDefinition definition = new CompositionCohortDefinition();
+
+    definition.setName("getIdicator16");
+
+    definition.addParameter(new Parameter("startDate", "Data Inicio Inclusão", Date.class));
+    definition.addParameter(new Parameter("endDate", "Data Fim Inclusão", Date.class));
+    definition.addParameter(new Parameter("location", "location", Date.class));
+
+    final String mappings = "startDate=${startDate},endDate=${endDate},location=${location}";
+    definition.addSearch(
+        "INDICATOR17",
+        EptsReportUtils.map(
+            this.resumoMensalCetaCohortQueries.findPatientsWhoAreInterruptTretmentIndicator17(),
+            mappings));
+    definition.addSearch(
+        "TRANSFERED",
+        EptsReportUtils.map(
+            resumoMensalCetaCohortQueries.findPatientsWhoAreTransferedIndicator19(), mappings));
+
+    definition.setCompositionString("INDICATOR17 AND TRANSFERED");
+
+    return definition;
+  }
+
+  @DocumentedDefinition(value = "getIdicator20")
+  public CohortDefinition getIdicator20() {
+    final CompositionCohortDefinition definition = new CompositionCohortDefinition();
+
+    definition.setName("getIdicator20");
+
+    definition.addParameter(new Parameter("startDate", "Data Inicio Inclusão", Date.class));
+    definition.addParameter(new Parameter("endDate", "Data Fim Inclusão", Date.class));
+    definition.addParameter(new Parameter("location", "location", Date.class));
+
+    final String mappings = "startDate=${startDate},endDate=${endDate},location=${location}";
+    definition.addSearch(
+        "INDICATOR17",
+        EptsReportUtils.map(
+            this.resumoMensalCetaCohortQueries
+                .findPatientsWhoAreFollowpCetaUntilTheEndOfMonthIndicator7(),
+            mappings));
+    definition.addSearch(
+        "REINTEGRETED",
+        EptsReportUtils.map(
+            resumoMensalCetaCohortQueries.findPatientsWhoAreReintegretedIndicator20(), mappings));
+
+    definition.setCompositionString("INDICATOR17 AND REINTEGRETED");
+
+    return definition;
+  }
+
+  @DocumentedDefinition(value = "getIdicator21")
+  public CohortDefinition getIdicator21() {
+    final CompositionCohortDefinition definition = new CompositionCohortDefinition();
+
+    definition.setName("getIdicator21");
+
+    definition.addParameter(new Parameter("startDate", "Data Inicio Inclusão", Date.class));
+    definition.addParameter(new Parameter("endDate", "Data Fim Inclusão", Date.class));
+    definition.addParameter(new Parameter("location", "location", Date.class));
+
+    final String mappings = "startDate=${startDate},endDate=${endDate},location=${location}";
+    definition.addSearch(
+        "INDICATOR17",
+        EptsReportUtils.map(
+            this.resumoMensalCetaCohortQueries
+                .findPatientsWhoAreFollowpCetaUntilTheEndOfMonthIndicator7(),
+            mappings));
+    definition.addSearch(
+        "DIED",
+        EptsReportUtils.map(
+            resumoMensalCetaCohortQueries.findPatientsWhoAreDiedIndicator21(), mappings));
+
+    definition.setCompositionString("INDICATOR17 AND DIED");
+
+    return definition;
+  }
+
+  @DocumentedDefinition(value = "getIdicator22")
+  public CohortDefinition getIdicator22() {
+    final CompositionCohortDefinition definition = new CompositionCohortDefinition();
+
+    definition.setName("getIdicator21");
+
+    definition.addParameter(new Parameter("startDate", "Data Inicio Inclusão", Date.class));
+    definition.addParameter(new Parameter("endDate", "Data Fim Inclusão", Date.class));
+    definition.addParameter(new Parameter("location", "location", Date.class));
+
+    final String mappings = "startDate=${startDate},endDate=${endDate},location=${location}";
+    definition.addSearch(
+        "INDICATOR17",
+        EptsReportUtils.map(
+            this.resumoMensalCetaCohortQueries
+                .findPatientsWhoAreFollowpCetaUntilTheEndOfMonthIndicator7(),
+            mappings));
+    definition.addSearch("INDICATOR18", EptsReportUtils.map(this.getIdicator18(), mappings));
+
+    definition.addSearch("INDICATOR19", EptsReportUtils.map(this.getIdicator19(), mappings));
+
+    definition.addSearch("INDICATOR20", EptsReportUtils.map(this.getIdicator20(), mappings));
+
+    definition.addSearch("INDICATOR21", EptsReportUtils.map(this.getIdicator21(), mappings));
 
     definition.setCompositionString(
-        "INDICATOR13 NOT(INDICATOR14 OR INDICATOR15 OR INDICATOR16 OR INDICATOR17)");
+        "INDICATOR17 NOT(INDICATOR18 OR INDICATOR19 OR INDICATOR20 OR INDICATOR21)");
 
     return definition;
   }

@@ -186,8 +186,45 @@ public class ResumoMensalCetaCohortQueries {
     return definition;
   }
 
-  @DocumentedDefinition(value = "findPatientsWhoAreReferedTwoFollowUpCommonMentalDiseaseIndicator4")
-  public CohortDefinition findPatientsWhoAreReferedTwoFollowUpCommonMentalDiseaseIndicator4() {
+  @DocumentedDefinition(value = "findPatientsWhoHaveEpilepsyPositiveResulteIndicator4")
+  public CohortDefinition findPatientsWhoHaveEpilepsyPositiveResulteIndicator4() {
+
+    final SqlCohortDefinition definition = new SqlCohortDefinition();
+
+    definition.setName("findPatientsWithScreeningCriteriaSegundARTConsultationInCetaInitialForm");
+    definition.addParameter(new Parameter("startDate", "Start Date", Date.class));
+    definition.addParameter(new Parameter("endDate", "End Date", Date.class));
+    definition.addParameter(new Parameter("location", "Location", Location.class));
+
+    String query =
+        ResumoMensalCetaQueries.QUERY.findPatientsWhoHaveEpilepsyPositiveResulteIndicator4;
+
+    definition.setQuery(query);
+
+    return definition;
+  }
+
+  @DocumentedDefinition(value = "findPatientsWhoAreReferedTwoFollowUpCommonMentalDiseaseIndicator5")
+  public CohortDefinition findPatientsWhoAreReferedTwoFollowUpCommonMentalDiseaseIndicator5() {
+
+    final SqlCohortDefinition definition = new SqlCohortDefinition();
+
+    definition.setName("findPatientsWhoAreReferedTwoFollowUpCommonMentalDiseaseIndicator5");
+    definition.addParameter(new Parameter("startDate", "Start Date", Date.class));
+    definition.addParameter(new Parameter("endDate", "End Date", Date.class));
+    definition.addParameter(new Parameter("location", "Location", Location.class));
+
+    String query =
+        ResumoMensalCetaQueries.QUERY
+            .findPatientsWhoAreReferedTwoFollowUpCommonMentalDiseaseIndicator5;
+
+    definition.setQuery(query);
+
+    return definition;
+  }
+
+  @DocumentedDefinition(value = "findPatientsWhoAreStartedSMTretmentInCetaInitialFormIndicator6")
+  public CohortDefinition findPatientsWhoAreStartedSMTretmentInCetaInitialFormIndicator6() {
 
     final SqlCohortDefinition definition = new SqlCohortDefinition();
 
@@ -198,44 +235,44 @@ public class ResumoMensalCetaCohortQueries {
 
     String query =
         ResumoMensalCetaQueries.QUERY
-            .findPatientsWhoAreReferedTwoFollowUpCommonMentalDiseaseIndicator4;
+            .findPatientsWhoAreStartedSMTretmentInCetaInitialFormIndicator6;
 
     definition.setQuery(query);
 
     return definition;
   }
 
-  @DocumentedDefinition(value = "findPatientsWhoAreStartedSMTretmentInCetaInitialFormIndicator5")
-  public CohortDefinition findPatientsWhoAreStartedSMTretmentInCetaInitialFormIndicator5() {
+  @DocumentedDefinition(value = "findPatientsWhoAreFollowpCetaUntilTheEndOfMonthIndicator7")
+  public CohortDefinition findPatientsWhoAreFollowpCetaUntilTheEndOfMonthIndicator7() {
 
     final SqlCohortDefinition definition = new SqlCohortDefinition();
 
     definition.setName("findPatientsWithScreeningCriteriaSegundARTConsultationInCetaInitialForm");
+    definition.addParameter(new Parameter("startDate", "Start Date", Date.class));
+    definition.addParameter(new Parameter("endDate", "End Date", Date.class));
+    definition.addParameter(new Parameter("location", "Location", Location.class));
+
+    String query =
+        ResumoMensalCetaQueries.QUERY.findPatientsWhoAreFollowpCetaUntilTheEndOfMonthIndicator7;
+
+    definition.setQuery(query);
+
+    return definition;
+  }
+
+  @DocumentedDefinition(value = "findPatientsWhoHaveaIdeationSuicideAttemptAtTheEntranceIndicator8")
+  public CohortDefinition findPatientsWhoHaveaIdeationSuicideAttemptAtTheEntranceIndicator8() {
+
+    final SqlCohortDefinition definition = new SqlCohortDefinition();
+
+    definition.setName("findPatientsWhoHaveaIdeationSuicideAttemptAtTheEntranceIndicator8");
     definition.addParameter(new Parameter("startDate", "Start Date", Date.class));
     definition.addParameter(new Parameter("endDate", "End Date", Date.class));
     definition.addParameter(new Parameter("location", "Location", Location.class));
 
     String query =
         ResumoMensalCetaQueries.QUERY
-            .findPatientsWhoAreStartedSMTretmentInCetaInitialFormIndicator5;
-
-    definition.setQuery(query);
-
-    return definition;
-  }
-
-  @DocumentedDefinition(value = "findPatientsWhoAreFollowpCetaUntilTheEndOfMonthIndicator6")
-  public CohortDefinition findPatientsWhoAreFollowpCetaUntilTheEndOfMonthIndicator6() {
-
-    final SqlCohortDefinition definition = new SqlCohortDefinition();
-
-    definition.setName("findPatientsWithScreeningCriteriaSegundARTConsultationInCetaInitialForm");
-    definition.addParameter(new Parameter("startDate", "Start Date", Date.class));
-    definition.addParameter(new Parameter("endDate", "End Date", Date.class));
-    definition.addParameter(new Parameter("location", "Location", Location.class));
-
-    String query =
-        ResumoMensalCetaQueries.QUERY.findPatientsWhoAreFollowpCetaUntilTheEndOfMonthIndicator6;
+            .findPatientsWhoHaveaIdeationSuicideAttemptAtTheEntranceIndicator8;
 
     definition.setQuery(query);
 
@@ -243,27 +280,80 @@ public class ResumoMensalCetaCohortQueries {
   }
 
   @DocumentedDefinition(
-      value = "findPatientsWhoHaveatAtLeastOneSuicideAttemptAtTheEntranceIndicator7")
-  public CohortDefinition findPatientsWhoHaveatAtLeastOneSuicideAttemptAtTheEntranceIndicator7() {
+      value = "findPatientsWhoHaveatAtLeastOneSuicideAttemptAtTheEntranceIndicator9")
+  public CohortDefinition findPatientsWhoStartedSMCetaIndicator9() {
 
     final SqlCohortDefinition definition = new SqlCohortDefinition();
 
-    definition.setName("findPatientsWithScreeningCriteriaSegundARTConsultationInCetaInitialForm");
+    definition.setName("findPatientsWhoHaveatAtLeastOneSuicideAttemptAtTheEntranceIndicator9");
     definition.addParameter(new Parameter("startDate", "Start Date", Date.class));
     definition.addParameter(new Parameter("endDate", "End Date", Date.class));
     definition.addParameter(new Parameter("location", "Location", Location.class));
 
     String query =
         ResumoMensalCetaQueries.QUERY
-            .findPatientsWhoHaveatAtLeastOneSuicideAttemptAtTheEntranceIndicator7;
+            .findPatientsWhoHaveatAtLeastOneSuicideAttemptAtTheEntranceIndicator9;
 
     definition.setQuery(query);
 
     return definition;
   }
 
-  @DocumentedDefinition(value = "findPatientsWhoStartedSMCetaIndicator8")
-  public CohortDefinition findPatientsWhoStartedSMCetaIndicator8() {
+  @DocumentedDefinition(value = "findPatientsWithHomicideIdeationAtTheEntranceIndicator10")
+  public CohortDefinition findPatientsWithHomicideIdeationAtTheEntranceIndicator10() {
+
+    final SqlCohortDefinition definition = new SqlCohortDefinition();
+
+    definition.setName("findPatientsWithHomicideIdeationAtTheEntranceIndicator10");
+    definition.addParameter(new Parameter("startDate", "Start Date", Date.class));
+    definition.addParameter(new Parameter("endDate", "End Date", Date.class));
+    definition.addParameter(new Parameter("location", "Location", Location.class));
+
+    String query =
+        ResumoMensalCetaQueries.QUERY.findPatientsWithHomicideIdeationAtTheEntranceIndicator10;
+
+    definition.setQuery(query);
+
+    return definition;
+  }
+
+  @DocumentedDefinition(value = "findPatientsWithAtLeastOneAttemptedHomicedeAtEntry11")
+  public CohortDefinition findPatientsWithAtLeastOneAttemptedHomicedeAtEntry11() {
+
+    final SqlCohortDefinition definition = new SqlCohortDefinition();
+
+    definition.setName("findPatientsWithAtLeastOneAttemptedHomicedeAtEntry11");
+    definition.addParameter(new Parameter("startDate", "Start Date", Date.class));
+    definition.addParameter(new Parameter("endDate", "End Date", Date.class));
+    definition.addParameter(new Parameter("location", "Location", Location.class));
+
+    String query =
+        ResumoMensalCetaQueries.QUERY.findPatientsWithAtLeastOneAttemptedHomicedeAtEntry11;
+
+    definition.setQuery(query);
+
+    return definition;
+  }
+
+  @DocumentedDefinition(value = "findPatientsWithDepressionSymptomsIndicator12")
+  public CohortDefinition findPatientsWithDepressionSymptomsIndicator12() {
+
+    final SqlCohortDefinition definition = new SqlCohortDefinition();
+
+    definition.setName("findPatientsWithDepressionSymptomsIndicator12");
+    definition.addParameter(new Parameter("startDate", "Start Date", Date.class));
+    definition.addParameter(new Parameter("endDate", "End Date", Date.class));
+    definition.addParameter(new Parameter("location", "Location", Location.class));
+
+    String query = ResumoMensalCetaQueries.QUERY.findPatientsWithDepressionSymptomsIndicator12;
+
+    definition.setQuery(query);
+
+    return definition;
+  }
+
+  @DocumentedDefinition(value = "findPatientsWithAnxietySymptomsIndicator13")
+  public CohortDefinition findPatientsWithAnxietySymptomsIndicator13() {
 
     final SqlCohortDefinition definition = new SqlCohortDefinition();
 
@@ -272,15 +362,15 @@ public class ResumoMensalCetaCohortQueries {
     definition.addParameter(new Parameter("endDate", "End Date", Date.class));
     definition.addParameter(new Parameter("location", "Location", Location.class));
 
-    String query = ResumoMensalCetaQueries.QUERY.findPatientsWhoStartedSMCetaIndicator8;
+    String query = ResumoMensalCetaQueries.QUERY.findPatientsWithAnxietySymptomsIndicator13;
 
     definition.setQuery(query);
 
     return definition;
   }
 
-  @DocumentedDefinition(value = "findPatientsWhoStartedSMCetaIndicator9")
-  public CohortDefinition findPatientsWhoStartedSMCetaIndicator9() {
+  @DocumentedDefinition(value = "findPatientsWithTraumaSymptomsIndicator14")
+  public CohortDefinition findPatientsWithTraumaSymptomsIndicator14() {
 
     final SqlCohortDefinition definition = new SqlCohortDefinition();
 
@@ -289,15 +379,15 @@ public class ResumoMensalCetaCohortQueries {
     definition.addParameter(new Parameter("endDate", "End Date", Date.class));
     definition.addParameter(new Parameter("location", "Location", Location.class));
 
-    String query = ResumoMensalCetaQueries.QUERY.findPatientsWhoStartedSMCetaIndicator9;
+    String query = ResumoMensalCetaQueries.QUERY.findPatientsWithTraumaSymptomsIndicator14;
 
     definition.setQuery(query);
 
     return definition;
   }
 
-  @DocumentedDefinition(value = "findPatientsWhoStartedSMCetaIndicator10")
-  public CohortDefinition findPatientsWhoStartedSMCetaIndicator10() {
+  @DocumentedDefinition(value = "findPatientswhoAbuseAlcoholicBeveragesIndicator15")
+  public CohortDefinition findPatientswhoAbuseAlcoholicBeveragesIndicator15() {
 
     final SqlCohortDefinition definition = new SqlCohortDefinition();
 
@@ -306,143 +396,127 @@ public class ResumoMensalCetaCohortQueries {
     definition.addParameter(new Parameter("endDate", "End Date", Date.class));
     definition.addParameter(new Parameter("location", "Location", Location.class));
 
-    String query = ResumoMensalCetaQueries.QUERY.findPatientsWhoStartedSMCetaIndicator10;
+    String query = ResumoMensalCetaQueries.QUERY.findPatientswhoAbuseAlcoholicBeveragesIndicator15;
 
     definition.setQuery(query);
 
     return definition;
   }
 
-  @DocumentedDefinition(value = "findPatientsWhoStartedSMCetaIndicator11")
-  public CohortDefinition findPatientsWhoStartedSMCetaIndicator11() {
+  @DocumentedDefinition(value = "findPatientswhoConsumeOthePsychoactiveSubtancesIndicator16")
+  public CohortDefinition findPatientswhoConsumeOthePsychoactiveSubtancesIndicator16() {
 
     final SqlCohortDefinition definition = new SqlCohortDefinition();
 
-    definition.setName("findPatientsWithScreeningCriteriaSegundARTConsultationInCetaInitialForm");
+    definition.setName("findPatientswhoConsumeOthePsychoactiveSubtancesIndicator16");
     definition.addParameter(new Parameter("startDate", "Start Date", Date.class));
     definition.addParameter(new Parameter("endDate", "End Date", Date.class));
     definition.addParameter(new Parameter("location", "Location", Location.class));
 
-    String query = ResumoMensalCetaQueries.QUERY.findPatientsWhoStartedSMCetaIndicator11;
+    String query =
+        ResumoMensalCetaQueries.QUERY.findPatientswhoConsumeOthePsychoactiveSubtancesIndicator16;
 
     definition.setQuery(query);
 
     return definition;
   }
 
-  @DocumentedDefinition(value = "findPatientsWhoStartedSMCetaIndicator12")
-  public CohortDefinition findPatientsWhoStartedSMCetaIndicator12() {
+  @DocumentedDefinition(value = "findPatientsWhoAreInterruptTretmentIndicator17")
+  public CohortDefinition findPatientsWhoAreInterruptTretmentIndicator17() {
 
     final SqlCohortDefinition definition = new SqlCohortDefinition();
 
-    definition.setName("findPatientsWithScreeningCriteriaSegundARTConsultationInCetaInitialForm");
+    definition.setName("findPatientsWhoAreInterruptTretmentIndicator17");
     definition.addParameter(new Parameter("startDate", "Start Date", Date.class));
     definition.addParameter(new Parameter("endDate", "End Date", Date.class));
     definition.addParameter(new Parameter("location", "Location", Location.class));
 
-    String query = ResumoMensalCetaQueries.QUERY.findPatientsWhoStartedSMCetaIndicator12;
+    String query = ResumoMensalCetaQueries.QUERY.findPatientsWhoAreInterruptTretmentIndicator17;
 
     definition.setQuery(query);
 
     return definition;
   }
 
-  @DocumentedDefinition(value = "findPatientsWhoAreInterruptTretmentIndicator13")
-  public CohortDefinition findPatientsWhoAreInterruptTretmentIndicator13() {
+  @DocumentedDefinition(value = "findPatientsWhoAreReferedIndicator18")
+  public CohortDefinition findPatientsWhoAreReferedIndicator18() {
 
     final SqlCohortDefinition definition = new SqlCohortDefinition();
 
-    definition.setName("findPatientsWithScreeningCriteriaSegundARTConsultationInCetaInitialForm");
+    definition.setName("findPatientsWhoAreReferedIndicator18");
     definition.addParameter(new Parameter("startDate", "Start Date", Date.class));
     definition.addParameter(new Parameter("endDate", "End Date", Date.class));
     definition.addParameter(new Parameter("location", "Location", Location.class));
 
-    String query = ResumoMensalCetaQueries.QUERY.findPatientsWhoAreInterruptTretmentIndicator13;
+    String query = ResumoMensalCetaQueries.QUERY.findPatientsWhoAreReferedIndicator18;
 
     definition.setQuery(query);
 
     return definition;
   }
 
-  @DocumentedDefinition(value = "findPatientsWhoAreInterruptTretmentIndicator14")
-  public CohortDefinition findPatientsWhoAreInterruptTretmentIndicator14() {
+  @DocumentedDefinition(value = "findPatientsWhoAreTransferedIndicator19")
+  public CohortDefinition findPatientsWhoAreTransferedIndicator19() {
 
     final SqlCohortDefinition definition = new SqlCohortDefinition();
 
-    definition.setName("findPatientsWithScreeningCriteriaSegundARTConsultationInCetaInitialForm");
+    definition.setName("findPatientsWhoAreTransferedIndicator19");
     definition.addParameter(new Parameter("startDate", "Start Date", Date.class));
     definition.addParameter(new Parameter("endDate", "End Date", Date.class));
     definition.addParameter(new Parameter("location", "Location", Location.class));
 
-    String query = ResumoMensalCetaQueries.QUERY.findPatientsWhoAreInterruptTretmentIndicator14;
+    String query = ResumoMensalCetaQueries.QUERY.findPatientsWhoAreTransferedIndicator19;
 
     definition.setQuery(query);
 
     return definition;
   }
 
-  @DocumentedDefinition(value = "findPatientsWhoAreInterruptTretmentIndicator15")
-  public CohortDefinition findPatientsWhoAreInterruptTretmentIndicator15() {
+  @DocumentedDefinition(value = "findPatientsWhoAreReintegretedIndicator20")
+  public CohortDefinition findPatientsWhoAreReintegretedIndicator20() {
 
     final SqlCohortDefinition definition = new SqlCohortDefinition();
 
-    definition.setName("findPatientsWithScreeningCriteriaSegundARTConsultationInCetaInitialForm");
+    definition.setName("findPatientsWhoAreReintegretedIndicator20");
     definition.addParameter(new Parameter("startDate", "Start Date", Date.class));
     definition.addParameter(new Parameter("endDate", "End Date", Date.class));
     definition.addParameter(new Parameter("location", "Location", Location.class));
 
-    String query = ResumoMensalCetaQueries.QUERY.findPatientsWhoAreInterruptTretmentIndicator15;
+    String query = ResumoMensalCetaQueries.QUERY.findPatientsWhoAreReintegretedIndicator20;
 
     definition.setQuery(query);
 
     return definition;
   }
 
-  @DocumentedDefinition(value = "findPatientsWhoAreReintegretedIndicator16")
-  public CohortDefinition findPatientsWhoAreReintegretedIndicator16() {
+  @DocumentedDefinition(value = "findPatientsWhoAreDiedIndicator21")
+  public CohortDefinition findPatientsWhoAreDiedIndicator21() {
 
     final SqlCohortDefinition definition = new SqlCohortDefinition();
 
-    definition.setName("findPatientsWithScreeningCriteriaSegundARTConsultationInCetaInitialForm");
+    definition.setName("findPatientsWhoAreDiedIndicator21");
     definition.addParameter(new Parameter("startDate", "Start Date", Date.class));
     definition.addParameter(new Parameter("endDate", "End Date", Date.class));
     definition.addParameter(new Parameter("location", "Location", Location.class));
 
-    String query = ResumoMensalCetaQueries.QUERY.findPatientsWhoAreReintegretedIndicator16;
+    String query = ResumoMensalCetaQueries.QUERY.findPatientsWhoAreDiedIndicator21;
 
     definition.setQuery(query);
 
     return definition;
   }
 
-  @DocumentedDefinition(value = "findPatientsWhoAreDiedIndicator17")
-  public CohortDefinition findPatientsWhoAreDiedIndicator17() {
+  @DocumentedDefinition(value = "findPatientsWhoEndTrementIndicator23")
+  public CohortDefinition findPatientsWhoEndTrementIndicator23() {
 
     final SqlCohortDefinition definition = new SqlCohortDefinition();
 
-    definition.setName("findPatientsWithScreeningCriteriaSegundARTConsultationInCetaInitialForm");
+    definition.setName("findPatientsWhoAreDiedIndicator21");
     definition.addParameter(new Parameter("startDate", "Start Date", Date.class));
     definition.addParameter(new Parameter("endDate", "End Date", Date.class));
     definition.addParameter(new Parameter("location", "Location", Location.class));
 
-    String query = ResumoMensalCetaQueries.QUERY.findPatientsWhoAreDiedIndicator17;
-
-    definition.setQuery(query);
-
-    return definition;
-  }
-
-  @DocumentedDefinition(value = "findPatientsWhoEndTrementIndicator19")
-  public CohortDefinition findPatientsWhoEndTrementIndicator19() {
-
-    final SqlCohortDefinition definition = new SqlCohortDefinition();
-
-    definition.setName("findPatientsWithScreeningCriteriaSegundARTConsultationInCetaInitialForm");
-    definition.addParameter(new Parameter("startDate", "Start Date", Date.class));
-    definition.addParameter(new Parameter("endDate", "End Date", Date.class));
-    definition.addParameter(new Parameter("location", "Location", Location.class));
-
-    String query = ResumoMensalCetaQueries.QUERY.findPatientsWhoEndTrementIndicator19;
+    String query = ResumoMensalCetaQueries.QUERY.findPatientsWhoEndTrementIndicator23;
 
     definition.setQuery(query);
 

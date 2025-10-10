@@ -74,113 +74,141 @@ public class ResumoMensalCetaSection5DataSet extends BaseDataSet {
     addRow(
         dataSetDefinition,
         "RMCSI4",
-        "Sem Informacao: Nr de Pacientes referidos para o seguimento de Doença Mental Comum (Psicólogo))",
+        "Sem Informacao: Nr de Pacientes com resultado positivo para Epilepsia",
         EptsReportUtils.map(resumoMensalCetaInjectIndicator.inject(4), mappings),
         getColumnsSection6());
 
     addRow(
         dataSetDefinition,
         "RMCSI5",
-        "Sem Informacao: Nr de Pacientes que iniciaram o tratamento de SM - CETA",
+        "Sem Informacao: Nr de  Pacientes referidos para o seguimento  de Doença Mental Comum (Psicólogo)",
         EptsReportUtils.map(resumoMensalCetaInjectIndicator.inject(5), mappings),
         getColumnsSection6());
 
     addRow(
         dataSetDefinition,
         "RMCSI6",
-        "Sem Informacao: Nr de Pacientes em seguimento no CETA ate o final do mes)",
+        "Sem Informacao: Nr de Pacientes que iniciaram o tratamento de SM - CETA",
         EptsReportUtils.map(resumoMensalCetaInjectIndicator.inject(6), mappings),
         getColumnsSection6());
 
     addRow(
         dataSetDefinition,
         "RMCSI7",
-        "Sem Informacao: Nr de Pacientes com, pelo menos, uma Tentativa de Suicídio a entrada",
+        "Sem Informacao: Nr de Pacientes em seguimento no CETA ate o final do mês",
         EptsReportUtils.map(resumoMensalCetaInjectIndicator.inject(7), mappings),
         getColumnsSection6());
 
     addRow(
         dataSetDefinition,
         "RMCSI8",
-        "Sem Informacao: Nr de Pacientes com Tentativa de Homicídio a entrada",
+        "Sem Informacao: Nr de Pacientes com Ideação de Suicídio na entrada",
         EptsReportUtils.map(resumoMensalCetaInjectIndicator.inject(8), mappings),
         getColumnsSection6());
 
     addRow(
         dataSetDefinition,
         "RMCSI9",
-        "Sem Informacao: Nr de pacientes com sintomas de ansiedade/depressão",
+        "Sem Informacao: Nr de Pacientes com Tentaiva de Suicídio na entrada",
         EptsReportUtils.map(resumoMensalCetaInjectIndicator.inject(9), mappings),
         getColumnsSection6());
 
     addRow(
         dataSetDefinition,
         "RMCSI10",
-        "Sem Informacao: Nr de pacientes com trauma",
+        "Sem Informacao: Nr de Pacientes com Ideação de Homicídio a entrada",
         EptsReportUtils.map(resumoMensalCetaInjectIndicator.inject(10), mappings),
         getColumnsSection6());
 
     addRow(
         dataSetDefinition,
         "RMCSI11",
-        "Sem Informacao: Nr de pacientes que consomem abusivamente bebidas alcoolicas",
+        "Sem Informacao: Nr de Pacientes com Tentativa de Homicídio a entrada",
         EptsReportUtils.map(resumoMensalCetaInjectIndicator.inject(11), mappings),
         getColumnsSection6());
 
     addRow(
         dataSetDefinition,
         "RMCSI12",
-        "Sem Informacao: Nr de pacientes que consomem outras substâncias psicoactivas (ex. Canabis, marijuana, etc)",
+        "Sem Informacao: Nr de pacientes com sintomas de depressão",
         EptsReportUtils.map(resumoMensalCetaInjectIndicator.inject(12), mappings),
         getColumnsSection6());
 
     addRow(
         dataSetDefinition,
         "RMCSI13",
-        "Sem Informacao: Nr de pacientes que interromperam o tratamento",
+        "Sem Informacao: Nr de pacientes com sintomas de ansiedadess",
         EptsReportUtils.map(resumoMensalCetaInjectIndicator.inject(13), mappings),
         getColumnsSection6());
 
     addRow(
         dataSetDefinition,
         "RMCSI14",
-        "Sem Informacao: Nr de pacientes referidos",
+        "Sem Informacao: Nr de pacientes com trauma",
         EptsReportUtils.map(resumoMensalCetaInjectIndicator.inject(14), mappings),
         getColumnsSection6());
 
     addRow(
         dataSetDefinition,
         "RMCSI15",
-        "Sem Informacao: Nr de pacientes transferidos",
+        "Sem Informacao: Nr de pacientes que consomem abusivamente bebidas alcoolicas",
         EptsReportUtils.map(resumoMensalCetaInjectIndicator.inject(15), mappings),
         getColumnsSection6());
 
     addRow(
         dataSetDefinition,
         "RMCSI16",
-        "Sem Informacao: Nr de pacientes reintegrados",
+        "Sem Informacao: Nr de pacientes que consomem outras substâncias psicoactivas (ex. Canabis, marijuana, etc)",
         EptsReportUtils.map(resumoMensalCetaInjectIndicator.inject(16), mappings),
         getColumnsSection6());
 
     addRow(
         dataSetDefinition,
         "RMCSI17",
-        "Sem Informacao: Nr de Óbitos",
+        "Sem Informacao: Nr de pacientes que interromperam o tratamento",
         EptsReportUtils.map(resumoMensalCetaInjectIndicator.inject(17), mappings),
         getColumnsSection6());
 
     addRow(
         dataSetDefinition,
         "RMCSI18",
-        "Sem Informacao: Nr de Abandonos",
+        "Sem Informacao: Nr de pacientes referidos",
         EptsReportUtils.map(resumoMensalCetaInjectIndicator.inject(18), mappings),
         getColumnsSection6());
 
     addRow(
         dataSetDefinition,
         "RMCSI19",
-        "Sem Informacao: Nr de Pacientes que terminaram o tratamento",
+        "Sem Informacao: Nr de pacientes transferidos",
         EptsReportUtils.map(resumoMensalCetaInjectIndicator.inject(19), mappings),
+        getColumnsSection6());
+
+    addRow(
+        dataSetDefinition,
+        "RMCSI20",
+        "Sem Informacao: Nr de pacientes reintegrados",
+        EptsReportUtils.map(resumoMensalCetaInjectIndicator.inject(20), mappings),
+        getColumnsSection6());
+
+    addRow(
+        dataSetDefinition,
+        "RMCSI21",
+        "Sem Informacao:Nr de Óbitos",
+        EptsReportUtils.map(resumoMensalCetaInjectIndicator.inject(21), mappings),
+        getColumnsSection6());
+
+    addRow(
+        dataSetDefinition,
+        "RMCSI22",
+        "Sem Informacao:Nr de Abandonos",
+        EptsReportUtils.map(resumoMensalCetaInjectIndicator.inject(22), mappings),
+        getColumnsSection6());
+
+    addRow(
+        dataSetDefinition,
+        "RMCSI23",
+        "Sem Informacao:Nr de Pacientes que terminaram o tratamento",
+        EptsReportUtils.map(resumoMensalCetaInjectIndicator.inject(23), mappings),
         getColumnsSection6());
 
     return dataSetDefinition;

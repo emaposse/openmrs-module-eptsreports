@@ -73,113 +73,141 @@ public class ResumoMensalCetaSection3DataSet extends BaseDataSet {
     addRow(
         dataSetDefinition,
         "RMCRM4",
-        "Reintegrado/Ma Adesao: Nr de Pacientes referidos para o seguimento de Doença Mental Comum (Psicólogo))",
+        "Reintegrado/Ma Adesao: Nr de Pacientes com resultado positivo para Epilepsia",
         EptsReportUtils.map(resumoMensalCetaInjectIndicator.inject(4), mappings),
         getColumnsSection6());
 
     addRow(
         dataSetDefinition,
         "RMCRM5",
-        "Reintegrado/Ma Adesao: Nr de Pacientes que iniciaram o tratamento de SM - CETA",
+        "Reintegrado/Ma Adesao: Nr de  Pacientes referidos para o seguimento  de Doença Mental Comum (Psicólogo)",
         EptsReportUtils.map(resumoMensalCetaInjectIndicator.inject(5), mappings),
         getColumnsSection6());
 
     addRow(
         dataSetDefinition,
         "RMCRM6",
-        "Reintegrado/Ma Adesao: Nr de Pacientes em seguimento no CETA ate o final do mes)",
+        "Reintegrado/Ma Adesao: Nr de Pacientes que iniciaram o tratamento de SM - CETA",
         EptsReportUtils.map(resumoMensalCetaInjectIndicator.inject(6), mappings),
         getColumnsSection6());
 
     addRow(
         dataSetDefinition,
         "RMCRM7",
-        "Reintegrado/Ma Adesao: Nr de Pacientes com, pelo menos, uma Tentativa de Suicídio a entrada",
+        "Reintegrado/Ma Adesao:Nr de Pacientes em seguimento no CETA ate o final do mês",
         EptsReportUtils.map(resumoMensalCetaInjectIndicator.inject(7), mappings),
         getColumnsSection6());
 
     addRow(
         dataSetDefinition,
         "RMCRM8",
-        "Reintegrado/Ma Adesao: Nr de Pacientes com Tentativa de Homicídio a entrada",
+        "Reintegrado/Ma Adesao: Nr de Pacientes com Ideação de Suicídio na entrada",
         EptsReportUtils.map(resumoMensalCetaInjectIndicator.inject(8), mappings),
         getColumnsSection6());
 
     addRow(
         dataSetDefinition,
         "RMCRM9",
-        "Reintegrado/Ma Adesao: Nr de pacientes com sintomas de ansiedade/depressão",
+        "Reintegrado/Ma Adesao: Nr de Pacientes com Tentaiva de Suicídio na entrada",
         EptsReportUtils.map(resumoMensalCetaInjectIndicator.inject(9), mappings),
         getColumnsSection6());
 
     addRow(
         dataSetDefinition,
         "RMCRM10",
-        "Reintegrado/Ma Adesao: Nr de pacientes com trauma",
+        "Reintegrado/Ma Adesao: Nr de Pacientes com Ideação de Homicídio a entrada",
         EptsReportUtils.map(resumoMensalCetaInjectIndicator.inject(10), mappings),
         getColumnsSection6());
 
     addRow(
         dataSetDefinition,
         "RMCRM11",
-        "Reintegrado/Ma Adesao: Nr de pacientes que consomem abusivamente bebidas alcoolicas",
+        "Reintegrado/Ma Adesao: Nr de Pacientes com Tentativa de Homicídio a entrada",
         EptsReportUtils.map(resumoMensalCetaInjectIndicator.inject(11), mappings),
         getColumnsSection6());
 
     addRow(
         dataSetDefinition,
         "RMCRM12",
-        "Reintegrado/Ma Adesao: Nr de pacientes que consomem outras substâncias psicoactivas (ex. Canabis, marijuana, etc)",
+        "Reintegrado/Ma Adesao: Nr de pacientes com sintomas de depressão",
         EptsReportUtils.map(resumoMensalCetaInjectIndicator.inject(12), mappings),
         getColumnsSection6());
 
     addRow(
         dataSetDefinition,
         "RMCRM13",
-        "Reintegrado/Ma Adesao: Nr de pacientes que interromperam o tratamento",
+        "Reintegrado/Ma Adesao: Nr de pacientes com sintomas de ansiedade",
         EptsReportUtils.map(resumoMensalCetaInjectIndicator.inject(13), mappings),
         getColumnsSection6());
 
     addRow(
         dataSetDefinition,
         "RMCRM14",
-        "Reintegrado/Ma Adesao: Nr de pacientes referidos",
+        "Reintegrado/Ma Adesao: Nr de pacientes com trauma",
         EptsReportUtils.map(resumoMensalCetaInjectIndicator.inject(14), mappings),
         getColumnsSection6());
 
     addRow(
         dataSetDefinition,
         "RMCRM15",
-        "Reintegrado/Ma Adesao: Nr de pacientes transferidos",
+        "Reintegrado/Ma Adesao: Nr de pacientes que consomem abusivamente bebidas alcoolicas",
         EptsReportUtils.map(resumoMensalCetaInjectIndicator.inject(15), mappings),
         getColumnsSection6());
 
     addRow(
         dataSetDefinition,
         "RMCRM16",
-        "Reintegrado/Ma Adesao: Nr de pacientes reintegrados",
+        "Reintegrado/Ma Adesao: Nr de pacientes que consomem outras substâncias psicoactivas (ex. Canabis, marijuana, etc)",
         EptsReportUtils.map(resumoMensalCetaInjectIndicator.inject(16), mappings),
         getColumnsSection6());
 
     addRow(
         dataSetDefinition,
         "RMCRM17",
-        "Reintegrado/Ma Adesao: Nr de Óbitos",
+        "Reintegrado/Ma Adesao: Nr de pacientes que interromperam o tratamento",
         EptsReportUtils.map(resumoMensalCetaInjectIndicator.inject(17), mappings),
         getColumnsSection6());
 
     addRow(
         dataSetDefinition,
         "RMCRM18",
-        "Reintegrado/Ma Adesao: Nr de Abandonos",
+        "Reintegrado/Ma Adesao: Nr de pacientes referidos",
         EptsReportUtils.map(resumoMensalCetaInjectIndicator.inject(18), mappings),
         getColumnsSection6());
 
     addRow(
         dataSetDefinition,
         "RMCRM19",
-        "Reintegrado/Ma Adesao: Nr de Pacientes que terminaram o tratamento",
+        "Reintegrado/Ma Adesao: Nr de pacientes transferidos",
         EptsReportUtils.map(resumoMensalCetaInjectIndicator.inject(19), mappings),
+        getColumnsSection6());
+
+    addRow(
+        dataSetDefinition,
+        "RMCRM20",
+        "Reintegrado/Ma Adesao: Nr de pacientes reintegrados",
+        EptsReportUtils.map(resumoMensalCetaInjectIndicator.inject(20), mappings),
+        getColumnsSection6());
+
+    addRow(
+        dataSetDefinition,
+        "RMCRM21",
+        "Reintegrado/Ma Adesao: Nr de Óbitos",
+        EptsReportUtils.map(resumoMensalCetaInjectIndicator.inject(21), mappings),
+        getColumnsSection6());
+
+    addRow(
+        dataSetDefinition,
+        "RMCRM22",
+        "Reintegrado/Ma Adesao:Nr de Abandonos",
+        EptsReportUtils.map(resumoMensalCetaInjectIndicator.inject(22), mappings),
+        getColumnsSection6());
+
+    addRow(
+        dataSetDefinition,
+        "RMCRM22",
+        "Reintegrado/Ma Adesao:Nr de Pacientes que terminaram o tratamento",
+        EptsReportUtils.map(resumoMensalCetaInjectIndicator.inject(23), mappings),
         getColumnsSection6());
 
     return dataSetDefinition;

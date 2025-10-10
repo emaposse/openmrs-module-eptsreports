@@ -73,113 +73,141 @@ public class ResumoMensalCetaSection4DataSet extends BaseDataSet {
     addRow(
         dataSetDefinition,
         "RMCFP4",
-        "Factores Psicossociais: Nr de Pacientes referidos para o seguimento de Doença Mental Comum (Psicólogo))",
+        "Factores Psicossociais: Nr de Pacientes com resultado positivo para Epilepsia",
         EptsReportUtils.map(resumoMensalCetaInjectIndicator.inject(4), mappings),
         getColumnsSection6());
 
     addRow(
         dataSetDefinition,
         "RMCFP5",
-        "Factores Psicossociais: Nr de Pacientes que iniciaram o tratamento de SM - CETA",
+        "Factores Psicossociais: Nr de  Pacientes referidos para o seguimento  de Doença Mental Comum (Psicólogo)",
         EptsReportUtils.map(resumoMensalCetaInjectIndicator.inject(5), mappings),
         getColumnsSection6());
 
     addRow(
         dataSetDefinition,
         "RMCFP6",
-        "Factores Psicossociais: Nr de Pacientes em seguimento no CETA ate o final do mes)",
+        "Factores Psicossociais:Nr de Pacientes que iniciaram o tratamento de SM - CETA",
         EptsReportUtils.map(resumoMensalCetaInjectIndicator.inject(6), mappings),
         getColumnsSection6());
 
     addRow(
         dataSetDefinition,
         "RMCFP7",
-        "Factores Psicossociais: Nr de Pacientes com, pelo menos, uma Tentativa de Suicídio a entrada",
+        "Factores Psicossociais: Nr de Pacientes em seguimento no CETA ate o final do mês",
         EptsReportUtils.map(resumoMensalCetaInjectIndicator.inject(7), mappings),
         getColumnsSection6());
 
     addRow(
         dataSetDefinition,
         "RMCFP8",
-        "Factores Psicossociais: Nr de Pacientes com Tentativa de Homicídio a entrada",
+        "Factores Psicossociais: Nr de Pacientes com Ideação de Suicídio na entrada",
         EptsReportUtils.map(resumoMensalCetaInjectIndicator.inject(8), mappings),
         getColumnsSection6());
 
     addRow(
         dataSetDefinition,
         "RMCFP9",
-        "Factores Psicossociais: Nr de pacientes com sintomas de ansiedade/depressão",
+        "Factores Psicossociais: Nr de Pacientes com Tentaiva de Suicídio na entrada",
         EptsReportUtils.map(resumoMensalCetaInjectIndicator.inject(9), mappings),
         getColumnsSection6());
 
     addRow(
         dataSetDefinition,
         "RMCFP10",
-        "Factores Psicossociais: Nr de pacientes com trauma",
+        "Factores Psicossociais: Nr de Pacientes com Ideação de Homicídio a entrada",
         EptsReportUtils.map(resumoMensalCetaInjectIndicator.inject(10), mappings),
         getColumnsSection6());
 
     addRow(
         dataSetDefinition,
         "RMCFP11",
-        "Factores Psicossociais: Nr de pacientes que consomem abusivamente bebidas alcoolicas",
+        "Factores Psicossociais: Nr de Pacientes com Tentativa de Homicídio a entrada",
         EptsReportUtils.map(resumoMensalCetaInjectIndicator.inject(11), mappings),
         getColumnsSection6());
 
     addRow(
         dataSetDefinition,
         "RMCFP12",
-        "Factores Psicossociais: Nr de pacientes que consomem outras substâncias psicoactivas (ex. Canabis, marijuana, etc)",
+        "Factores Psicossociais: Nr de pacientes com sintomas de depressão",
         EptsReportUtils.map(resumoMensalCetaInjectIndicator.inject(12), mappings),
         getColumnsSection6());
 
     addRow(
         dataSetDefinition,
         "RMCFP13",
-        "Factores Psicossociais: Nr de pacientes que interromperam o tratamento",
+        "Factores Psicossociais: Nr de pacientes com sintomas de ansiedade",
         EptsReportUtils.map(resumoMensalCetaInjectIndicator.inject(13), mappings),
         getColumnsSection6());
 
     addRow(
         dataSetDefinition,
         "RMCFP14",
-        "Factores Psicossociais: Nr de pacientes referidos",
+        "Factores Psicossociais: Nr de pacientes com trauma",
         EptsReportUtils.map(resumoMensalCetaInjectIndicator.inject(14), mappings),
         getColumnsSection6());
 
     addRow(
         dataSetDefinition,
         "RMCFP15",
-        "Factores Psicossociais: Nr de pacientes transferidos",
+        "Factores Psicossociais: Nr de pacientes que consomem abusivamente bebidas alcoolicas",
         EptsReportUtils.map(resumoMensalCetaInjectIndicator.inject(15), mappings),
         getColumnsSection6());
 
     addRow(
         dataSetDefinition,
         "RMCFP16",
-        "Factores Psicossociais: Nr de pacientes reintegrados",
+        "Factores Psicossociais: Nr de pacientes que consomem outras substâncias psicoactivas (ex. Canabis, marijuana, etc)",
         EptsReportUtils.map(resumoMensalCetaInjectIndicator.inject(16), mappings),
         getColumnsSection6());
 
     addRow(
         dataSetDefinition,
         "RMCFP17",
-        "Factores Psicossociais: Nr de Óbitos",
+        "Factores Psicossociais: Nr de pacientes que interromperam o tratamento",
         EptsReportUtils.map(resumoMensalCetaInjectIndicator.inject(17), mappings),
         getColumnsSection6());
 
     addRow(
         dataSetDefinition,
         "RMCFP18",
-        "Factores Psicossociais: Nr de Abandonos",
+        "Factores Psicossociais:Nr de pacientes referidos",
         EptsReportUtils.map(resumoMensalCetaInjectIndicator.inject(18), mappings),
         getColumnsSection6());
 
     addRow(
         dataSetDefinition,
         "RMCFP19",
-        "Factores Psicossociais: Nr de Pacientes que terminaram o tratamento",
+        "Factores Psicossociais: Nr de pacientes transferidos",
         EptsReportUtils.map(resumoMensalCetaInjectIndicator.inject(19), mappings),
+        getColumnsSection6());
+
+    addRow(
+        dataSetDefinition,
+        "RMCFP20",
+        "Factores Psicossociais: Nr de pacientes reintegrados",
+        EptsReportUtils.map(resumoMensalCetaInjectIndicator.inject(20), mappings),
+        getColumnsSection6());
+
+    addRow(
+        dataSetDefinition,
+        "RMCFP21",
+        "Factores Psicossociais: Nr de Óbitos",
+        EptsReportUtils.map(resumoMensalCetaInjectIndicator.inject(21), mappings),
+        getColumnsSection6());
+
+    addRow(
+        dataSetDefinition,
+        "RMCFP22",
+        "Factores Psicossociais:Nr de Abandonos",
+        EptsReportUtils.map(resumoMensalCetaInjectIndicator.inject(22), mappings),
+        getColumnsSection6());
+
+    addRow(
+        dataSetDefinition,
+        "RMCFP22",
+        "Factores Psicossociais:Nr de Pacientes que terminaram o tratamento",
+        EptsReportUtils.map(resumoMensalCetaInjectIndicator.inject(23), mappings),
         getColumnsSection6());
 
     return dataSetDefinition;

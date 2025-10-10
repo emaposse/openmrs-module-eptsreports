@@ -201,21 +201,6 @@
 	(
 	select final.patient_id from
 	(
-	select p.patient_id,max(e.encounter_datetime) from patient p 
-	inner join encounter  e on e.patient_id=p.patient_id 
-	inner join obs o on o.encounter_id=e.encounter_id 
-	where p.voided=0  
-	and e.voided=0 and o.voided=0  
-	and e.encounter_type=97 
-	and o.concept_id=6193	  
-	and e.encounter_datetime<=:endDate
-	and e.location_id=:location 
-	group by p.patient_id 
-	)final
-	
-	union
-	select final.patient_id from
-	(
 	select p.patient_id from patient p 
 	inner join encounter  e on e.patient_id=p.patient_id 
 	inner join obs o on o.encounter_id=e.encounter_id 
@@ -228,54 +213,6 @@
 	and e.encounter_datetime>=:startDate  
 	and e.encounter_datetime<=:endDate 
 	and e.location_id=:location 
-	union 
-	select  pg.patient_id from  patient p   
-	inner join patient_program pg on p.patient_id=pg.patient_id 
-	inner join patient_state ps on   ps.patient_program_id=pg.patient_program_id                        
-	where pg.voided=0  
-	and p.voided=0  
-	and program_id=1  
-	and date_enrolled<=:endDate 
-	and location_id=:location 
-	and ps.state in(1,28) 
-	and pg.patient_id=9144
-	and pg.patient_id not in 
-	( 
-	select  pg.patient_id from  patient p   
-	inner join patient_program pg on p.patient_id=pg.patient_id                          
-	where pg.voided=0  
-	and p.voided=0  
-	and program_id=2  
-	and date_enrolled<=:endDate 
-	and location_id=:location  
-	) 
-	union 
-	select fichaResumo.patient_id 
-	from 
-	( 
-	select p.patient_id, o.value_datetime data from patient p 
-	inner join encounter  e on e.patient_id=p.patient_id 
-	inner  join obs o on o.encounter_id=e.encounter_id 
-	where p.voided=0  
-	and e.voided=0 
-	and o.voided=0 
-	and e.encounter_type=53 
-	and o.concept_id=23891 
-	and o.value_datetime<=:endDate 
-	and e.location_id=:location 
-	)fichaResumo 
-	left join 
-	( 
-	select e.patient_id, min(e.encounter_datetime) as art_start_date from patient p  
-	inner join encounter e on p.patient_id=e.patient_id  
-	where p.voided=0  
-	and e.encounter_type in(18,52)  
-	and e.voided=0  
-	and e.encounter_datetime<=:endDate  
-	and e.location_id=:location  
-	group by p.patient_id  
-	)lev on fichaResumo.patient_id=lev.patient_id 
-	where lev.patient_id is null 
 	)final
 	)final
 	
