@@ -78,6 +78,10 @@ public class ResumoMensalCohortQueriesComposition {
             mappings));
 
     definition.addSearch(
+        "TRIN",
+        EptsReportUtils.map(resumoMensalCetaCohortQueries.findPatientsWhoTransferedIn(), mappings));
+
+    definition.addSearch(
         "CV",
         EptsReportUtils.map(
             this.resumoMensalCetaCohortQueries.findPatientsWithHighViralLoadResultInOtherSources(),
@@ -98,7 +102,7 @@ public class ResumoMensalCohortQueriesComposition {
             mappings));
 
     definition.setCompositionString(
-        "FICHAFICABEM OR (SECONDCONSULTATION NOT FICHAFICABEMEEXCLUSION) OR (CV NOT FICHAFICABEMEEXCLUSION) OR (REINTEGRETED NOT FICHAFICABEMEEXCLUSION) OR (PSYCHOSOCIALFACTORS NOT FICHAFICABEMEEXCLUSION)");
+        "FICHAFICABEM  OR (((SECONDCONSULTATION NOT TRIN)  OR CV OR REINTEGRETED OR PSYCHOSOCIALFACTORS) NOT(FICHAFICABEMEEXCLUSION))");
 
     return definition;
   }

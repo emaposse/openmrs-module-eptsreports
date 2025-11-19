@@ -145,6 +145,23 @@ public class ResumoMensalCetaCohortQueries {
     return definition;
   }
 
+  @DocumentedDefinition(value = "findPatientsWhoTransferedIn")
+  public CohortDefinition findPatientsWhoTransferedIn() {
+
+    final SqlCohortDefinition definition = new SqlCohortDefinition();
+
+    definition.setName("findPatientsWhoTransferedIn");
+    definition.addParameter(new Parameter("startDate", "Start Date", Date.class));
+    definition.addParameter(new Parameter("endDate", "End Date", Date.class));
+    definition.addParameter(new Parameter("location", "Location", Location.class));
+
+    String query = ResumoMensalCetaQueries.QUERY.findPatientsWhoTransferedIn;
+
+    definition.setQuery(query);
+
+    return definition;
+  }
+
   @DocumentedDefinition(
       value = "findPatientsWhoHavePositiveResultOnFichaFicaBemDuringReportingPeriodIndicator2")
   public CohortDefinition

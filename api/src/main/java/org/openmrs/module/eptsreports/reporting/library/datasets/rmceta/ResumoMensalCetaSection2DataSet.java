@@ -205,7 +205,7 @@ public class ResumoMensalCetaSection2DataSet extends BaseDataSet {
 
     addRow(
         dataSetDefinition,
-        "RMCCV22",
+        "RMCCV23",
         "CV>1000 cp/ml: Nr de Pacientes que terminaram o tratamento",
         EptsReportUtils.map(resumoMensalCetaInjectIndicator.inject(23), mappings),
         getColumnsSection6());
@@ -235,10 +235,10 @@ public class ResumoMensalCetaSection2DataSet extends BaseDataSet {
         new ColumnParameters("fouty5To49M", "25+ female", "gender=F|age=25+|state=high-vl", "06");
 
     ColumnParameters totalM =
-        new ColumnParameters("totalM", "total male", "gender=M|state=high-vl", "07");
+        new ColumnParameters("totalM", "total male", "gender=M|age=15+|state=high-vl", "07");
 
     ColumnParameters totalF =
-        new ColumnParameters("totalF", "total female", "gender=F|state=high-vl", "08");
+        new ColumnParameters("totalF", "total female", "gender=F|age=15+|state=high-vl", "08");
 
     return Arrays.asList(
         fifteenTo19M,

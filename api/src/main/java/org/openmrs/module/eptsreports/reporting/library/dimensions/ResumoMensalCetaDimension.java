@@ -44,7 +44,7 @@ public class ResumoMensalCetaDimension {
         "reintegreted",
         EptsReportUtils.map(
             this.genericCohortQueries.generalSql(
-                "Reintegrado/Ma Adesao", Ceta.findCetaDesagragation(CetaType.Tree)),
+                "Reintegrado", Ceta.findCetaDesagragation(CetaType.Tree)),
             mappings));
 
     dimension.addCohortDefinition(

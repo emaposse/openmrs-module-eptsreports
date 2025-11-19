@@ -205,7 +205,7 @@ public class ResumoMensalCetaSection4DataSet extends BaseDataSet {
 
     addRow(
         dataSetDefinition,
-        "RMCFP22",
+        "RMCFP23",
         "Factores Psicossociais:Nr de Pacientes que terminaram o tratamento",
         EptsReportUtils.map(resumoMensalCetaInjectIndicator.inject(23), mappings),
         getColumnsSection6());
@@ -240,10 +240,12 @@ public class ResumoMensalCetaSection4DataSet extends BaseDataSet {
             "fouty5To49M", "25+ female", "gender=F|age=25+|state=psychosocial-factors", "06");
 
     ColumnParameters totalM =
-        new ColumnParameters("totalM", "total male", "gender=M|state=psychosocial-factors", "07");
+        new ColumnParameters(
+            "totalM", "total male", "gender=M|age=15+|state=psychosocial-factors", "07");
 
     ColumnParameters totalF =
-        new ColumnParameters("totalF", "total female", "gender=F|state=psychosocial-factors", "08");
+        new ColumnParameters(
+            "totalF", "total female", "gender=F|age=15+|state=psychosocial-factors", "08");
 
     return Arrays.asList(
         fifteenTo19M,

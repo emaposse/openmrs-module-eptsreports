@@ -237,10 +237,12 @@ public class ResumoMensalCetaSection1DataSet extends BaseDataSet {
             "fouty5To49M", "25+ female", "gender=F|age=25+|state=second-consultation", "06");
 
     ColumnParameters totalM =
-        new ColumnParameters("totalM", "total male", "gender=M|state=second-consultation", "07");
+        new ColumnParameters(
+            "totalM", "total male", "gender=M|age=15+|state=second-consultation", "07");
 
     ColumnParameters totalF =
-        new ColumnParameters("totalF", "total female", "gender=F|state=second-consultation", "08");
+        new ColumnParameters(
+            "totalF", "total female", "gender=F|age=15+|state=second-consultation", "08");
 
     return Arrays.asList(
         fifteenTo19M,

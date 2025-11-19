@@ -14,8 +14,6 @@ public interface ResumoMensalCetaQueries {
             + "and e.encounter_type=53 "
             + "and o.concept_id=1369 "
             + "and o.value_coded=1065 "
-            + "and e.encounter_datetime>=:startDate "
-            + "and e.encounter_datetime<=:endDate "
             + "and e.location_id=:location ";
 
     public static final String
@@ -85,7 +83,7 @@ public interface ResumoMensalCetaQueries {
                 + ")final "
                 + "group by final.patient_id "
                 + ")f "
-                + "where (f.data_segunda_consulta > :startDate) ";
+                + "where (f.data_segunda_consulta >= :startDate and f.data_segunda_consulta<=:endDate) ";
 
     public static final String findPatientsWithHighViralLoadResultInCetaInitialForm =
         "select final.patient_id from"
@@ -167,22 +165,9 @@ public interface ResumoMensalCetaQueries {
                 + "and e.encounter_type=53  "
                 + "and o.concept_id=6272	  "
                 + "and o.value_coded=1705 "
-                + "and e.encounter_datetime>=:startDate  "
-                + "and e.encounter_datetime<=:endDate "
+                + "and o.obs_datetime>=:startDate  "
+                + "and o.obs_datetime<=:endDate "
                 + "and e.location_id=:location  "
-                + "union "
-                + "select p.patient_id, max(e.encounter_datetime) data_estado from patient p "
-                + "inner join encounter  e on e.patient_id=p.patient_id "
-                + "inner join obs o on o.encounter_id=e.encounter_id "
-                + "where p.voided=0  "
-                + "and e.voided=0 and o.voided=0  "
-                + "and e.encounter_type in(6,35) "
-                + "and o.concept_id=6223	  "
-                + "and o.value_coded=1385 "
-                + "and e.encounter_datetime>=:startDate  "
-                + "and e.encounter_datetime<=:endDate "
-                + "and e.location_id=:location  "
-                + "group by p.patient_id "
                 + ")maAdesaoOtrasFontes ";
 
     public static final String
@@ -225,6 +210,22 @@ public interface ResumoMensalCetaQueries {
             + "and e.encounter_datetime>=:startDate "
             + "and e.encounter_datetime<=:endDate "
             + "and e.location_id=:location ";
+
+    public static final String findPatientsWhoTransferedIn =
+        " SELECT tr.patient_id from ( "
+            + "SELECT p.patient_id "
+            + "from patient p   "
+            + "INNER JOIN encounter e ON p.patient_id=e.patient_id   "
+            + "INNER JOIN obs obsTrans ON e.encounter_id=obsTrans.encounter_id  "
+            + "WHERE p.voided=0  "
+            + "AND e.voided=0  "
+            + "AND e.encounter_type=53   "
+            + "AND e.location_id=:location  "
+            + "AND obsTrans.voided=0  "
+            + "AND obsTrans.concept_id=1369 "
+            + "AND obsTrans.value_coded=1065  "
+            + "GROUP BY p.patient_id  "
+            + ") tr ";
 
     public static final String
         findPatientsWhoHavePositiveResultOnFichaFicaBemDuringReportingPeriodIndicator2 =

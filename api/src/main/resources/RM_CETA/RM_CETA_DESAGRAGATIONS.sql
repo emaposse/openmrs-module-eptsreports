@@ -1,5 +1,8 @@
 	select finalTable.patient_id from
 	(
+    select f.*
+    from
+    (
 	select final.patient_id, 1 fonte
 	from
 	(
@@ -77,7 +80,7 @@
 	)final
 	group by final.patient_id
 	)f
-	where (f.data_segunda_consulta > :startDate) 
+	where (f.data_segunda_consulta >= :startDate and f.data_segunda_consulta<=:endDate)
 	)final
 	)final
 	
@@ -174,22 +177,9 @@
 	and e.encounter_type=53  
 	and o.concept_id=6272	  
 	and o.value_coded=1705 
-	and e.encounter_datetime>=:startDate  
-	and e.encounter_datetime<=:endDate
+	and o.obs_datetime>=:startDate  
+	and o.obs_datetime<=:endDate
 	and e.location_id=:location  
-	union 
-	select p.patient_id, max(e.encounter_datetime) data_estado from patient p 
-	inner join encounter  e on e.patient_id=p.patient_id 
-	inner join obs o on o.encounter_id=e.encounter_id 
-	where p.voided=0  
-	and e.voided=0 and o.voided=0  
-	and e.encounter_type in(6,35) 
-	and o.concept_id=6223	  
-	and o.value_coded=1385 
-	and e.encounter_datetime>=:startDate  
-	and e.encounter_datetime<=:endDate
-	and e.location_id=:location   
-	group by p.patient_id 
 	)maAdesaoOtrasFontes 
 	)final
 	
@@ -301,7 +291,7 @@
 	)final
 	group by final.patient_id
 	)f
-	where (f.data_segunda_consulta > :startDate) 
+	where (f.data_segunda_consulta >= :startDate and f.data_segunda_consulta<=:endDate) 
 	)final
 	)final
 	
@@ -399,19 +389,6 @@
 	and e.encounter_datetime>=:startDate  
 	and e.encounter_datetime<=:endDate
 	and e.location_id=:location  
-	union 
-	select p.patient_id, max(e.encounter_datetime) data_estado from patient p 
-	inner join encounter  e on e.patient_id=p.patient_id 
-	inner join obs o on o.encounter_id=e.encounter_id 
-	where p.voided=0  
-	and e.voided=0 and o.voided=0  
-	and e.encounter_type in(6,35) 
-	and o.concept_id=6223	  
-	and o.value_coded=1385 
-	and e.encounter_datetime>=:startDate  
-	and e.encounter_datetime<=:endDate
-	and e.location_id=:location   
-	group by p.patient_id 
 	)maAdesaoOtrasFontes 
 	)final
 	
@@ -503,8 +480,8 @@
 	order by finalTable.patient_id,finalTable.fonte
 	)tobeExclude on tobeExclude.patient_id=p.patient_id
 	where tobeExclude.patient_id is null
-	
+	)f
+     group by f.patient_id
 	)finalTable
 	where finalTable.fonte in(%s)
-	group by finalTable.patient_id
 	order by finalTable.patient_id,finalTable.fonte
