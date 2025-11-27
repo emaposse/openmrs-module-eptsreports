@@ -61,7 +61,7 @@
 	and e.location_id=:location 
 	group by p.patient_id 
 	)segunda
-	left join encounter e on e.patient_id=segunda.patient_id  and e.encounter_type=6 and e.encounter_datetime>segunda.data_primeira_consulta
+	left join encounter e on e.patient_id=segunda.patient_id  and e.encounter_type=6 and e.encounter_datetime>segunda.data_primeira_consulta and e.voided=0 
 	group by segunda.patient_id
 	
 	union
@@ -82,6 +82,24 @@
 	)f
 	where (f.data_segunda_consulta >= :startDate and f.data_segunda_consulta<=:endDate)
 	)final
+		left join
+			(
+				SELECT tr.patient_id from 
+				 ( 
+		            SELECT p.patient_id 
+		            from patient p   
+		            INNER JOIN encounter e ON p.patient_id=e.patient_id   
+		            INNER JOIN obs obsTrans ON e.encounter_id=obsTrans.encounter_id  
+		            WHERE p.voided=0  
+		            AND e.voided=0  
+		            AND e.encounter_type=53   
+		            AND e.location_id=:location  
+		            AND obsTrans.voided=0  
+		            AND obsTrans.concept_id=1369 
+		            AND obsTrans.value_coded=1065  
+		            GROUP BY p.patient_id  
+		         ) tr 
+			)tr on tr.patient_id=final.patient_id where tr.patient_id is null
 	)final
 	
 	union
@@ -272,7 +290,7 @@
 	and e.location_id=:location 
 	group by p.patient_id 
 	)segunda
-	left join encounter e on e.patient_id=segunda.patient_id  and e.encounter_type=6 and e.encounter_datetime>segunda.data_primeira_consulta
+	left join encounter e on e.patient_id=segunda.patient_id  and e.encounter_type=6 and e.encounter_datetime>segunda.data_primeira_consulta and e.voided  =0
 	group by segunda.patient_id
 	
 	union
@@ -293,6 +311,24 @@
 	)f
 	where (f.data_segunda_consulta >= :startDate and f.data_segunda_consulta<=:endDate) 
 	)final
+	left join
+	(
+		SELECT tr.patient_id from 
+		 ( 
+            SELECT p.patient_id 
+            from patient p   
+            INNER JOIN encounter e ON p.patient_id=e.patient_id   
+            INNER JOIN obs obsTrans ON e.encounter_id=obsTrans.encounter_id  
+            WHERE p.voided=0  
+            AND e.voided=0  
+            AND e.encounter_type=53   
+            AND e.location_id=:location  
+            AND obsTrans.voided=0  
+            AND obsTrans.concept_id=1369 
+            AND obsTrans.value_coded=1065  
+            GROUP BY p.patient_id  
+         ) tr 
+	)tr on tr.patient_id=final.patient_id where tr.patient_id is null
 	)final
 	
 	union

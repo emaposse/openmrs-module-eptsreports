@@ -67,7 +67,7 @@ public interface ResumoMensalCetaQueries {
                 + "and e.location_id=:location "
                 + "group by p.patient_id "
                 + ")segunda "
-                + "left join encounter e on e.patient_id=segunda.patient_id  and e.encounter_type=6 and e.encounter_datetime>segunda.data_primeira_consulta "
+                + "left join encounter e on e.patient_id=segunda.patient_id  and e.encounter_type=6 and e.encounter_datetime>segunda.data_primeira_consulta and e.voided  =0 "
                 + "group by segunda.patient_id "
                 + "union "
                 + "select p.patient_id, min(e.encounter_datetime) encounter_datetime, 'T3' valor "
