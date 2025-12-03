@@ -187,17 +187,22 @@
 	and e.location_id=:location 
 	group by p.patient_id 
 	union 
-	select p.patient_id, o.obs_datetime data_estado from patient p 
-	inner join encounter  e on e.patient_id=p.patient_id 
-	inner join obs o on o.encounter_id=e.encounter_id 
-	where p.voided=0  
-	and e.voided=0 and o.voided=0  
-	and e.encounter_type=53  
-	and o.concept_id=6272	  
-	and o.value_coded=1705 
-	and o.obs_datetime>=:startDate  
-	and o.obs_datetime<=:endDate
-	and e.location_id=:location  
+    select maxResumo.patient_id,maxResumo.data_estado
+    from 
+    (
+    select p.patient_id, max(o.obs_datetime) data_estado from patient p 
+    inner join encounter  e on e.patient_id=p.patient_id 
+    inner join obs o on o.encounter_id=e.encounter_id 
+    where p.voided=0  
+    and e.voided=0 and o.voided=0  
+    and e.encounter_type=53
+    and o.concept_id=6272
+    and o.obs_datetime>=:startDate 
+    and o.obs_datetime<=:endDate
+    and e.location_id=:location  
+    group by p.patient_id
+    )maxResumo
+    inner join obs o on o.person_id=maxResumo.patient_id and o.concept_id=6272 and o.value_coded=1705 and maxResumo.data_estado=o.obs_datetime and o.voided=0 
 	)maAdesaoOtrasFontes 
 	)final
 	
@@ -414,17 +419,22 @@
 	and e.location_id=:location 
 	group by p.patient_id 
 	union 
-	select p.patient_id, o.obs_datetime data_estado from patient p 
-	inner join encounter  e on e.patient_id=p.patient_id 
-	inner join obs o on o.encounter_id=e.encounter_id 
-	where p.voided=0  
-	and e.voided=0 and o.voided=0  
-	and e.encounter_type=53  
-	and o.concept_id=6272	  
-	and o.value_coded=1705 
-	and e.encounter_datetime>=:startDate  
-	and e.encounter_datetime<=:endDate
-	and e.location_id=:location  
+    select maxResumo.patient_id,maxResumo.data_estado
+    from 
+    (
+    select p.patient_id, max(o.obs_datetime) data_estado from patient p 
+    inner join encounter  e on e.patient_id=p.patient_id 
+    inner join obs o on o.encounter_id=e.encounter_id 
+    where p.voided=0  
+    and e.voided=0 and o.voided=0  
+    and e.encounter_type=53
+    and o.concept_id=6272
+    and o.obs_datetime>=:startDate 
+    and o.obs_datetime<=:endDate
+    and e.location_id=:location  
+    group by p.patient_id
+    )maxResumo
+    inner join obs o on o.person_id=maxResumo.patient_id and o.concept_id=6272 and o.value_coded=1705 and maxResumo.data_estado=o.obs_datetime and o.voided=0 
 	)maAdesaoOtrasFontes 
 	)final
 	
