@@ -26,61 +26,60 @@
 	
 	union
 	
-	select f.patient_id
-	from
-	(
-	select final.patient_id,
-	    	  MAX(CASE WHEN final.valor = 'T1' then final.encounter_datetime END) as data_primeira_consulta,
-	    	  MAX(CASE WHEN final.valor = 'T2' then final.encounter_datetime END) as data_segunda_consulta,
-	    	  MAX(CASE WHEN final.valor = 'T3' then final.encounter_datetime END) as data_segunda_consulta_periodoa
-	   
+	SELECT f.patient_id
+		FROM 
+		(
+		    SELECT final.patient_id, 
+		           MAX(CASE WHEN final.valor = 'T1' THEN final.encounter_datetime END) AS data_primeira_consulta, 
+		           MAX(CASE WHEN final.valor = 'T2' THEN final.encounter_datetime END) AS data_segunda_consulta, 
+		           MAX(CASE WHEN final.valor = 'T3' THEN final.encounter_datetime END) AS data_segunda_consulta_periodo 
+		    FROM 
+		    (
+		        SELECT 
+		            x.patient_id,
+		            x.encounter_datetime,
+		            x.valor
+		        FROM (
+		            SELECT 
+		                e.patient_id,
+		                e.encounter_datetime,
+		                CASE 
+		                    WHEN @rn := IF(@prev = e.patient_id, @rn + 1, 1) THEN NULL END,
+		                    @prev := e.patient_id,
+		                    CASE 
+		                        WHEN @rn = 1 THEN 'T1'
+		                        WHEN @rn = 2 THEN 'T2'
+		                        ELSE NULL
+		                    END AS valor
+		            FROM encounter e
+		            CROSS JOIN (SELECT @prev := NULL, @rn := 0) vars
+		            WHERE e.voided = 0
+		              AND e.encounter_type = 6
+		              AND e.location_id =:location
+		              AND e.encounter_datetime <= :endDate
+		            ORDER BY e.patient_id, e.encounter_datetime
+		        ) x
+		        WHERE x.valor IS NOT NULL
+		
+		        UNION ALL
+		        
+		        SELECT p.patient_id, MIN(e.encounter_datetime), 'T3'
+		        FROM patient p 
+		        INNER JOIN encounter e ON e.patient_id = p.patient_id 
+		        WHERE p.voided = 0
+		          AND e.voided = 0
+		          AND e.encounter_type = 6
+		          AND e.encounter_datetime >= :startDate
+		          AND e.encounter_datetime <= :endDate
+		          AND e.location_id =:location 
+		        GROUP BY p.patient_id
+		
+		    ) final 
+		    GROUP BY final.patient_id 
+		) f 
+		WHERE f.data_segunda_consulta >= :startDate
+		  AND f.data_segunda_consulta <= :endDate
 	
-	from
-	(
-	select p.patient_id, min(e.encounter_datetime)  encounter_datetime, "T1" valor 
-	from patient p 
-	inner join encounter  e on e.patient_id=p.patient_id 
-	where p.voided=0 
-	and e.voided=0 
-	and e.encounter_type=6  
-	and e.encounter_datetime<=:endDate
-	and e.location_id=:location 
-	group by p.patient_id 
-	
-	union
-	
-	select segunda.patient_id,min(e.encounter_datetime) encounter_datetime, "T2" valor   from
-	(
-	select p.patient_id, min(e.encounter_datetime) data_primeira_consulta
-	from patient p 
-	inner join encounter  e on e.patient_id=p.patient_id 
-	where p.voided=0 
-	and e.voided=0 
-	and e.encounter_type=6  
-	and e.encounter_datetime<=:endDate 
-	and e.location_id=:location 
-	group by p.patient_id 
-	)segunda
-	left join encounter e on e.patient_id=segunda.patient_id  and e.encounter_type=6 and e.encounter_datetime>=segunda.data_primeira_consulta and e.voided=0 
-	group by segunda.patient_id
-	
-	union
-	
-	select p.patient_id, min(e.encounter_datetime) encounter_datetime, "T3" valor 
-	from patient p 
-	inner join encounter  e on e.patient_id=p.patient_id 
-	where p.voided=0 
-	and e.voided=0 
-	and e.encounter_type=6  
-	and e.encounter_datetime>=:startDate 
-	and e.encounter_datetime<=:endDate 
-	and e.location_id=:location 
-	group by p.patient_id 
-	
-	)final
-	group by final.patient_id
-	)f
-	where (f.data_segunda_consulta >= :startDate and f.data_segunda_consulta<=:endDate)
 	)final
 		left join
 			(
@@ -173,23 +172,23 @@
 	
 	select maAdesaoOtrasFontes.patient_id
 	from 
-	( 
-    select f.patient_id, f.data_estado
-     from
-    (
-    select p.patient_id, max(e.encounter_datetime) data_estado
-    from patient p 
-    inner join encounter  e on e.patient_id=p.patient_id 
-    inner join obs o on o.encounter_id=e.encounter_id 
-    where p.voided=0  
-    and e.voided=0 and o.voided=0  
-    and e.encounter_type=6  
-    and o.concept_id=6273      
-    and e.encounter_datetime>=:startDate
-    and e.encounter_datetime<=:endDate
-    and e.location_id=:location  
-    group by p.patient_id 
-    )f inner join obs o on o.person_id=f.patient_id and o.concept_id=6273 and o.value_coded=1705 and f.data_estado=o.obs_datetime and o.voided=0
+	(
+	            select f.patient_id, f.data_estado 
+                from 
+                ( 
+                select p.patient_id, max(e.encounter_datetime) data_estado 
+                from patient p  
+                inner join encounter  e on e.patient_id=p.patient_id  
+                inner join obs o on o.encounter_id=e.encounter_id  
+                where p.voided=0   
+                and e.voided=0 and o.voided=0   
+                and e.encounter_type=6   
+                and o.concept_id=6273       
+                and e.encounter_datetime>=:startDate 
+                and e.encounter_datetime<=:endDate 
+                and e.location_id=:location   
+                group by p.patient_id  
+                )f inner join obs o on o.person_id=f.patient_id and o.concept_id=6273 and o.value_coded=1705 and f.data_estado=o.obs_datetime and o.voided=0 
 	union 
     select maxResumo.patient_id,maxResumo.data_estado
     from 
@@ -264,61 +263,62 @@
 	
 	union
 	
-	select f.patient_id
-	from
+	SELECT f.patient_id
+	FROM 
 	(
-	select final.patient_id,
-	    	  MAX(CASE WHEN final.valor = 'T1' then final.encounter_datetime END) as data_primeira_consulta,
-	    	  MAX(CASE WHEN final.valor = 'T2' then final.encounter_datetime END) as data_segunda_consulta,
-	    	  MAX(CASE WHEN final.valor = 'T3' then final.encounter_datetime END) as data_segunda_consulta_periodoa
-	   
+	    SELECT final.patient_id, 
+	           MAX(CASE WHEN final.valor = 'T1' THEN final.encounter_datetime END) AS data_primeira_consulta, 
+	           MAX(CASE WHEN final.valor = 'T2' THEN final.encounter_datetime END) AS data_segunda_consulta, 
+	           MAX(CASE WHEN final.valor = 'T3' THEN final.encounter_datetime END) AS data_segunda_consulta_periodo 
+	    FROM 
+	    (
+	        SELECT 
+	            x.patient_id,
+	            x.encounter_datetime,
+	            x.valor
+	        FROM (
+	            SELECT 
+	                e.patient_id,
+	                e.encounter_datetime,
+	                CASE 
+	                    WHEN @rn := IF(@prev = e.patient_id, @rn + 1, 1) THEN NULL END,
+	                    @prev := e.patient_id,
+	                    CASE 
+	                        WHEN @rn = 1 THEN 'T1'
+	                        WHEN @rn = 2 THEN 'T2'
+	                        ELSE NULL
+	                    END AS valor
+	            FROM encounter e
+	            CROSS JOIN 
+	            (
+	            SELECT @prev := NULL, @rn := 0) vars
+	            WHERE e.voided = 0
+	              AND e.encounter_type = 6
+	              AND e.location_id =:location
+	              AND e.encounter_datetime <= :endDate
+	            ORDER BY e.patient_id, e.encounter_datetime
+	             ) x
+	        WHERE x.valor IS NOT NULL
 	
-	from
-	(
-	select p.patient_id, min(e.encounter_datetime)  encounter_datetime, "T1" valor 
-	from patient p 
-	inner join encounter  e on e.patient_id=p.patient_id 
-	where p.voided=0 
-	and e.voided=0 
-	and e.encounter_type=6  
-	and e.encounter_datetime<=:endDate 
-	and e.location_id=:location 
-	group by p.patient_id 
+	        UNION ALL
+	        
+	        SELECT p.patient_id, MIN(e.encounter_datetime), 'T3'
+	        FROM patient p 
+	        INNER JOIN encounter e ON e.patient_id = p.patient_id 
+	        WHERE p.voided = 0
+	          AND e.voided = 0
+	          AND e.encounter_type = 6
+	          AND e.encounter_datetime >= :startDate
+	          AND e.encounter_datetime <= :endDate
+	          AND e.location_id =:location 
+	        GROUP BY p.patient_id
 	
-	union
-	
-	select segunda.patient_id,min(e.encounter_datetime) encounter_datetime, "T2" valor   from
-	(
-	select p.patient_id, min(e.encounter_datetime) data_primeira_consulta
-	from patient p 
-	inner join encounter  e on e.patient_id=p.patient_id 
-	where p.voided=0 
-	and e.voided=0 
-	and e.encounter_type=6  
-	and e.encounter_datetime<=:endDate 
-	and e.location_id=:location 
-	group by p.patient_id 
-	)segunda
-	left join encounter e on e.patient_id=segunda.patient_id  and e.encounter_type=6 and e.encounter_datetime>=segunda.data_primeira_consulta and e.voided  =0
-	group by segunda.patient_id
-	
-	union
-	
-	select p.patient_id, min(e.encounter_datetime) encounter_datetime, "T3" valor 
-	from patient p 
-	inner join encounter  e on e.patient_id=p.patient_id 
-	where p.voided=0 
-	and e.voided=0 
-	and e.encounter_type=6  
-	and e.encounter_datetime>=:startDate 
-	and e.encounter_datetime<=:endDate 
-	and e.location_id=:location 
-	group by p.patient_id 
-	
-	)final
-	group by final.patient_id
-	)f
-	where (f.data_segunda_consulta >= :startDate and f.data_segunda_consulta<=:endDate) 
+	    ) final 
+	    GROUP BY final.patient_id 
+	) f 
+	WHERE f.data_segunda_consulta >= :startDate
+	  AND f.data_segunda_consulta <= :endDate
+
 	)final
 	left join
 	(
@@ -410,22 +410,22 @@
 	select maAdesaoOtrasFontes.patient_id
 	from 
 	( 
-    select f.patient_id, f.data_estado
-     from
-    (
-    select p.patient_id, max(e.encounter_datetime) data_estado
-    from patient p 
-    inner join encounter  e on e.patient_id=p.patient_id 
-    inner join obs o on o.encounter_id=e.encounter_id 
-    where p.voided=0  
-    and e.voided=0 and o.voided=0  
-    and e.encounter_type=6  
-    and o.concept_id=6273      
-    and e.encounter_datetime>=:startDate
-    and e.encounter_datetime<=:endDate
-    and e.location_id=:location  
-    group by p.patient_id 
-    )f inner join obs o on o.person_id=f.patient_id and o.concept_id=6273 and o.value_coded=1705 and f.data_estado=o.obs_datetime and o.voided=0
+            select f.patient_id, f.data_estado 
+                from 
+                ( 
+                select p.patient_id, max(e.encounter_datetime) data_estado 
+                from patient p  
+                inner join encounter  e on e.patient_id=p.patient_id  
+                inner join obs o on o.encounter_id=e.encounter_id  
+                where p.voided=0   
+                and e.voided=0 and o.voided=0   
+                and e.encounter_type=6   
+                and o.concept_id=6273       
+                and e.encounter_datetime>=:startDate 
+                and e.encounter_datetime<=:endDate 
+                and e.location_id=:location   
+                group by p.patient_id  
+                )f inner join obs o on o.person_id=f.patient_id and o.concept_id=6273 and o.value_coded=1705 and f.data_estado=o.obs_datetime and o.voided=0 
 	union 
     select maxResumo.patient_id,maxResumo.data_estado
     from 
