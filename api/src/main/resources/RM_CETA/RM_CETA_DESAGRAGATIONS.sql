@@ -61,7 +61,7 @@
 	and e.location_id=:location 
 	group by p.patient_id 
 	)segunda
-	left join encounter e on e.patient_id=segunda.patient_id  and e.encounter_type=6 and e.encounter_datetime>segunda.data_primeira_consulta and e.voided=0 
+	left join encounter e on e.patient_id=segunda.patient_id  and e.encounter_type=6 and e.encounter_datetime>=segunda.data_primeira_consulta and e.voided=0 
 	group by segunda.patient_id
 	
 	union
@@ -174,18 +174,22 @@
 	select maAdesaoOtrasFontes.patient_id
 	from 
 	( 
-	select p.patient_id, max(e.encounter_datetime) data_estado from patient p 
-	inner join encounter  e on e.patient_id=p.patient_id 
-	inner join obs o on o.encounter_id=e.encounter_id 
-	where p.voided=0  
-	and e.voided=0 and o.voided=0  
-	and e.encounter_type=6  
-	and o.concept_id=6273	  
-	and o.value_coded=1705 
-	and e.encounter_datetime>=:startDate  
-	and e.encounter_datetime<=:endDate
-	and e.location_id=:location 
-	group by p.patient_id 
+    select f.patient_id, f.data_estado
+     from
+    (
+    select p.patient_id, max(e.encounter_datetime) data_estado
+    from patient p 
+    inner join encounter  e on e.patient_id=p.patient_id 
+    inner join obs o on o.encounter_id=e.encounter_id 
+    where p.voided=0  
+    and e.voided=0 and o.voided=0  
+    and e.encounter_type=6  
+    and o.concept_id=6273      
+    and e.encounter_datetime>=:startDate
+    and e.encounter_datetime<=:endDate
+    and e.location_id=:location  
+    group by p.patient_id 
+    )f inner join obs o on o.person_id=f.patient_id and o.concept_id=6273 and o.value_coded=1705 and f.data_estado=o.obs_datetime and o.voided=0
 	union 
     select maxResumo.patient_id,maxResumo.data_estado
     from 
@@ -295,7 +299,7 @@
 	and e.location_id=:location 
 	group by p.patient_id 
 	)segunda
-	left join encounter e on e.patient_id=segunda.patient_id  and e.encounter_type=6 and e.encounter_datetime>segunda.data_primeira_consulta and e.voided  =0
+	left join encounter e on e.patient_id=segunda.patient_id  and e.encounter_type=6 and e.encounter_datetime>=segunda.data_primeira_consulta and e.voided  =0
 	group by segunda.patient_id
 	
 	union
@@ -406,18 +410,22 @@
 	select maAdesaoOtrasFontes.patient_id
 	from 
 	( 
-	select p.patient_id, max(e.encounter_datetime) data_estado from patient p 
-	inner join encounter  e on e.patient_id=p.patient_id 
-	inner join obs o on o.encounter_id=e.encounter_id 
-	where p.voided=0  
-	and e.voided=0 and o.voided=0  
-	and e.encounter_type=6  
-	and o.concept_id=6273	  
-	and o.value_coded=1705 
-	and e.encounter_datetime>=:startDate  
-	and e.encounter_datetime<=:endDate
-	and e.location_id=:location 
-	group by p.patient_id 
+    select f.patient_id, f.data_estado
+     from
+    (
+    select p.patient_id, max(e.encounter_datetime) data_estado
+    from patient p 
+    inner join encounter  e on e.patient_id=p.patient_id 
+    inner join obs o on o.encounter_id=e.encounter_id 
+    where p.voided=0  
+    and e.voided=0 and o.voided=0  
+    and e.encounter_type=6  
+    and o.concept_id=6273      
+    and e.encounter_datetime>=:startDate
+    and e.encounter_datetime<=:endDate
+    and e.location_id=:location  
+    group by p.patient_id 
+    )f inner join obs o on o.person_id=f.patient_id and o.concept_id=6273 and o.value_coded=1705 and f.data_estado=o.obs_datetime and o.voided=0
 	union 
     select maxResumo.patient_id,maxResumo.data_estado
     from 
